@@ -1,0 +1,228 @@
+{
+  "name":                       "runescimitar",
+  "description":                "Raspberry Pi 4",
+
+  "set_fqdn":                   "*.local",
+
+  "rpi4_server": {
+    "operator_user":            "wizard",
+
+    "ssh_allow_users":          ["wizard", "cleric"],
+    "ssh_deny_users":           ["nomad"],
+
+    "storage": {
+      "mount": {
+        "a2d2828e-fa2a-4af4-9fc0-602094458e14": {
+          "path":               "data",
+          "fstype":             "ext4"
+        },
+        "485d554b-62c0-46b5-899c-ce773bfec3a6": {
+          "path":               "archive",
+          "fstype":             "ext4"
+        },
+        "3ae8d6c6-0ef2-45b2-906f-be5643d8ca53": {
+          "path":               "bitcoin",
+          "fstype":             "ext4"
+        }
+      },
+
+      "var_mount": {
+        "path":                 "data",
+        "marker_file":          ".VAR_MOUNT_BIND"
+      }
+    },
+
+    "swap": {
+      "device":                 "a2d2828e-fa2a-4af4-9fc0-602094458e14",
+      "file":                   "/storage/data/swapfile",
+      "size_mb":                20480
+    },
+
+    "zram_swap": {
+      "devices":                1,
+      "uncompressed_limit_mb":  10240
+    },
+
+    "gpio_fan": {
+      "gpio_pin":               14,
+      "temp_millicelsius":      45000
+    }
+  },
+
+  "bitcoin_node": {
+    "bitcoin_core_version":     "25.0",
+
+    "sha256_checksums": {
+      "archive_targz":          "3a7bdd959a0b426624f63f394f25e5b7769a5a2f96f8126dcc2ea53f3fa5212b",
+      "sha256sums":             "74ae008c8c0a60c4b8a773b73d743a74d162ff2c53108be99015c82e33b8d0d4",
+      "sha256sums_asc":         "c00706920d48005d311130ac9a96072b0dec26581164dbd1bdddfeecc84b4380",
+      "sha256sums_ots":         "57e4eb15b3d178fd5fbf907e00f32f602ab1aaeb5d6cef4bdce6c36d7dfed81c"
+    },
+    "gpg_trust_builder_keys": {
+      "github_repository_id":   355107265
+    },
+    "rpcauth_script_sha256":    "b0920f6d96f8c72cee49df90ee4d0bf826bbe845596ecc056c6bc0873c146d1f",
+
+    "initial_block_download":   false,
+    "ibd_dbcache_mb":           4000,
+
+    "blocksdir_location":       "/storage/bitcoin",
+
+    "service_require": {
+      "bitcoind.service":       ["var.mount", "storage-bitcoin.mount"],
+      "fulcrum.service":        ["var.mount"]
+    },
+
+    "btc_rpc_proxy": {
+      "git_ref":                "ed018d48586a10d72d81ceef452b41cdca36c390"
+    },
+
+    "fulcrum": {
+      "version":                "1.9.1",
+
+      "sha256_checksums": {
+        "archive_targz":        "71fda510735002dfd982070f05c094c7d6a306b30e0ff14b4433fd5b6ed062a5",
+        "sha256sum":            "351d51a9330bbc8d1a366f299347a4e17f9b49b08b8946c4264e44c37776e31e",
+        "archive_targz_asc":    "ad7aa8279e368e8dfae6ef94743319da7274bb5577beb918deed3441d5d4f531",
+        "calinkey_txt":         "1879e1c3810d300119f983ad3e2ebb50509949c6e51efa5087326e5cf6c87868"
+      },
+
+      "fast_sync_memory_mb":    2048
+    },
+
+    "sparrow": {
+      "version":                "1.7.6",
+
+      "sha256_checksums": {
+        "sparrow_server":       "35fbecb5e8ce82903f352b1af8c2b173bdc0481ba2a8ec3298b8002d26073d84",
+        "manifest_txt":         "84e5a54386376bca8d2ea3857234eab79b645c231e7c25698070e33754d36185",
+        "manifest_txt_asc":     "b725063532ee786a56b439be50ae06152df974886b0a7853a8f5db907aecc9c2",
+        "craig_raw_gpg_key":    "1ae8e65076cb14173c56c1ae813cc25e79ca93cf644018746206789e1af4b089"
+      }
+    },
+
+    "libbitcoin_explorer": {
+      "git_ref":                "20eba4db9a8a3476949d6fd08a589abda7fde3e3"
+    },
+
+    "mempool": {
+      "git_ref":                "57eddac7f0b99b4fe84d91c0f4a50a4f7ccfe55f"
+    }
+  },
+
+  "bitcoin_users": {
+    "personal_user": {
+      "name":                   "cleric",
+
+      "spellbook": [
+        {
+          "bindsym":            "m",
+          "label":              "Mempool",
+          "command":            "kiosk-firefox https://localhost:4081"
+        }
+      ],
+
+      "removable_media": {
+        "C976-C83E": {
+          "path":               "usb-drive",
+          "fstype":             "vfat"
+        },
+        "1FE9-3335": {
+          "path":               "sd-card",
+          "fstype":             "vfat"
+        }
+      }
+    },
+    "guest_user": {
+      "name":                   "nomad",
+
+      "spellbook": [
+        {
+          "bindsym":            "m",
+          "label":              "Mempool",
+          "command":            "kiosk-firefox https://localhost:4081"
+        }
+      ],
+
+      "tmpfs_workspace": {
+        "size_mb":              128
+      }
+    }
+  },
+
+  "applications": {
+    "vim_plug_install": {
+      "users":                  ["wizard"]
+    }
+  },
+
+  "customization": {
+    "urxvt_font": {
+      "wizard": {
+        "font":                 "Comic Mono",
+        "font_size":            10,
+        "include_recipe":       "customization::font_comic_mono"
+      }
+    },
+    "urxvt_transparency": {
+      "wizard": {
+        "shading":              40
+      }
+    }
+  },
+
+  "run_list": [
+    "recipe[rpi4_server::cmdline]",
+    "recipe[rpi4_server::dtoverlay]",
+
+    "recipe[hostname::default]",
+
+    "recipe[rpi4_server::etc_bashrc]",
+    "recipe[rpi4_server::home_config]",
+
+    "recipe[rpi4_server::network]",
+
+    "recipe[rpi4_server::storage]",
+    "recipe[rpi4_server::var_mount]",
+
+    "recipe[rpi4_server::swap_space]",
+    "recipe[rpi4_server::ulimits]",
+    "recipe[rpi4_server::zram]",
+
+    "recipe[rpi4_server::i3wm]",
+    "recipe[rpi4_server::x11_config]",
+
+    "recipe[rpi4_server::vim]",
+
+    "recipe[rpi4_server::disable_services]",
+    "recipe[rpi4_server::rm_snapd]",
+    "recipe[rpi4_server::rm_cloudinit]",
+    "recipe[rpi4_server::rm_unattended_upgrades]",
+
+    "recipe[rpi4_server::sshd_config]",
+
+    "recipe[rpi4_server::ufw]",
+    "recipe[rpi4_server::fail2ban]",
+
+    "recipe[rpi4_server::nginx]",
+    "recipe[rpi4_server::tor]",
+    "recipe[rpi4_server::sshd_tor_hidden_service]",
+
+    "recipe[rpi4_server::opentimestamps]",
+
+    "recipe[bitcoin_node::bitcoin_core]",
+    "recipe[bitcoin_node::btc_rpc_proxy]",
+    "recipe[bitcoin_node::fulcrum]",
+
+    "recipe[bitcoin_node::sparrow]",
+
+    "recipe[bitcoin_node::libbitcoin_explorer]",
+    "recipe[bitcoin_node::mempool]",
+
+    "recipe[bitcoin_users::personal_user]",
+    "recipe[bitcoin_users::guest_user]",
+
+    "recipe[bitcoin_users::user_wallet]",
+    "recipe[bitcoin_users::firefox]"
+  ]
+}

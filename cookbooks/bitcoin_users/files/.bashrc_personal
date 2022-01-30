@@ -1,0 +1,14 @@
+PATH='~/.bin'
+export PATH
+
+HOME=~
+export HOME
+
+umask 0077
+
+alias vim='rvim'
+alias view='rview'
+
+unset -f command_not_found_handle
+
+export PS1="\[${COLOR_LIGHT_RED}\]""\$(mount | grep -q "$HOME/.workspace" || echo '[workspace unencrypted] ')""\[${COLOR_NC}\]""$PS1"

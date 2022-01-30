@@ -1,0 +1,15 @@
+background        no
+out_to_console 	  yes
+out_to_x	  no
+update_interval	  2
+total_run_times	  0
+short_units       1
+
+override_utf8_locale no
+
+TEXT
+[
+{"full_text": " ${exec bash ~/.wizard-kaomoji} ","color": "\#00DBC5"},
+{"full_text": " ${exec id -u -n}@${nodename} ","color": "\#409090"},
+{"full_text": " ${time %a %d %b %Y} ${time %l:%M %p} (${time %z %Z})", "color": "\#B5B5B5"}
+],

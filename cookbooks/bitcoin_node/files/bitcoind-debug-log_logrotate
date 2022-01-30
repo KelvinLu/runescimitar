@@ -1,0 +1,17 @@
+/var/bitcoin/datadir/debug.log
+{
+        rotate 24
+        monthly
+        create 0640 bitcoin bitcoin
+        olddir log
+        createolddir 0751 bitcoin bitcoin
+        missingok
+        notifempty
+        compress
+        delaycompress
+        sharedscripts
+        postrotate
+                kill -HUP $(cat /run/bitcoind/bitcoind.pid)
+        endscript
+        su bitcoin bitcoin
+}

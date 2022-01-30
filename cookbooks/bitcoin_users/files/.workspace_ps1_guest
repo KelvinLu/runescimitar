@@ -1,0 +1,13 @@
+#!/bin/bash
+
+n=0
+
+mount | grep "tmpfs on $HOME/workspace" | (
+  declare user=''
+  while read -r line; do
+    ((n++))
+    user=$(grep -o 'user=[a-z0-9_-]*' <<<"$line" | cut -d'=' -f2)
+  done
+  [[ $n = 0 ]] && echo "[workspace unmounted] " ||
+    echo "[tmpfs""/""$([[ ${user:-root} = 'root' ]] && echo '#' || echo '$')""$n" "${user:-root}""] "
+)

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+set -o nounset
+set -o errexit
+
+umask 0077
+TMPDIR=$(mktemp -p '/tmp' -d 'tmp-firefox-profile_XXXXXX')
+
+function rm_tmpdir {
+  rm -rf "$TMPDIR"
+}
+
+trap 'rm_tmpdir' EXIT
+
+firefox -profile "$TMPDIR" -no-remote -new-instance --kiosk "$@"

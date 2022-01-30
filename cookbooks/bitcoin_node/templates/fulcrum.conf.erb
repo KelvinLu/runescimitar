@@ -1,0 +1,22 @@
+# Bitcoin Core settings
+bitcoind = 127.0.0.1:8332
+rpccookie = /var/bitcoin/datadir/.cookie
+
+# Fulcrum server settings
+datadir = /var/fulcrum/datadir/fulcrum_db
+cert = /var/fulcrum/fulcrum-ssl-cert.pem
+key = /var/fulcrum/fulcrum-ssl-key.pem
+tcp = 0.0.0.0:50001
+ssl = 0.0.0.0:50002
+peering = false
+
+# RPi optimizations
+bitcoind_timeout = 600
+bitcoind_clients = 1
+worker_threads = 1
+db_mem = 1024.0
+
+db_max_open_files = 400
+fast-sync = <%= @fast_sync_memory_mb || 2048 %>
+
+banner = /var/fulcrum/fulcrum-banner.txt

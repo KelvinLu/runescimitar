@@ -1,0 +1,26 @@
+# Bitcoin daemon
+server=1
+txindex=1
+
+# Network
+listen=1
+listenonion=1
+proxy=127.0.0.1:9050
+bind=127.0.0.1
+
+# Connections
+<%= @rpcauth %>
+zmqpubrawblock=tcp://127.0.0.1:28332
+zmqpubrawtx=tcp://127.0.0.1:28333
+zmqpubhashblock=tcp://127.0.0.1:8433
+whitelist=download@127.0.0.1
+
+# Raspberry Pi optimizations
+maxconnections=40
+maxuploadtarget=5000
+
+<% if @ibd_optimization %>
+# Initial block download optimizations
+dbcache=<%= @ibd_dbcache_mb || 2000 %>
+blocksonly=1
+<% end %>

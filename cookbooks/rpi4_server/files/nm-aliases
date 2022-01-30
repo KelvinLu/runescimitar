@@ -1,0 +1,3 @@
+alias nm-status='nmcli device status'
+alias nm-wifi-list='nmcli device wifi list'
+alias nm-wifi-connect='nmcli device wifi connect --ask'

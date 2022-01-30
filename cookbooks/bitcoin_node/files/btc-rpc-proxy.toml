@@ -1,0 +1,7 @@
+bind_address = "127.0.0.1"
+bind_port = 8331
+
+bitcoind_address = "127.0.0.1"
+bitcoind_port = 8332
+
+cookie_file = "/var/bitcoin/datadir/.cookie"

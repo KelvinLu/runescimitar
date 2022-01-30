@@ -1,0 +1,4 @@
+source 'https://supermarket.chef.io'
+
+cookbook 'hostname', '~> 0.4.2'
+cookbook 'ulimit', '~> 1.1.1'

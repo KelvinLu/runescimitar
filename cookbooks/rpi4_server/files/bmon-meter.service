@@ -1,0 +1,11 @@
+[Unit]
+Description=Network bandwidth monitor (for status bar)
+
+[Service]
+Type=simple
+Nice=10
+ExecStart=%h/.bmon-meter/bmon-meter
+ExecStop=%h/.bmon-meter/bmon-meter stop $MAINPID
+
+[Install]
+WantedBy=graphical.target

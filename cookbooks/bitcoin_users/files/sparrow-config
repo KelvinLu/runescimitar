@@ -1,0 +1,13 @@
+{
+  "serverType": "ELECTRUM_SERVER",
+  "electrumServer": "tcp://127.0.0.1:50001",
+
+  "useProxy": true,
+  "proxyServer": "127.0.0.1:9050",
+  "autoSwitchProxy": true,
+
+  "preventSleep": true,
+
+  "bitcoinUnit": "BTC",
+  "unitFormat": "DOT"
+}

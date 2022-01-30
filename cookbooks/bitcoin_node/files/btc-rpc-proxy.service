@@ -1,0 +1,17 @@
+[Unit]
+Description=btc-rpc-proxy (bitcoind RPC proxy)
+PartOf=bitcoind.service
+After=bitcoind.service
+StartLimitBurst=2
+StartLimitIntervalSec=20
+
+[Service]
+ExecStart=/opt/btc-rpc-proxy/bin/btc_rpc_proxy --conf-dir /var/btc-rpc-proxy/conf.d
+User=btc-rpc-proxy
+Type=exec
+TimeoutStopSec=300
+RestartSec=30
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

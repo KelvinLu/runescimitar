@@ -1,0 +1,54 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+read_interval=5
+
+directory='/dev/shm/bmon-meter'
+
+interface_file="${directory}/interface"
+output_file="${directory}/output"
+
+command=${1:-'meter'}
+
+case "${command}" in
+  'meter')
+    mkdir --mode 0751 -p "${directory}"
+
+    touch "${output_file}"
+    chmod 0640 "${output_file}"
+    true > "${output_file}"
+
+    bmon -r "${read_interval}" -o format:fmt='$(element:name)\t$(attr:rxrate:bytes)\t$(attr:txrate:bytes)\n' | (
+      while read -r interface rxrate txrate; do
+        if ([[ $(< "${interface_file}") == "${interface}" ]] 2>/dev/null)
+        then
+          echo ${rxrate} ${txrate} > "${output_file}"
+        fi
+      done
+    )
+    ;;
+  'set-interface')
+    mkdir --mode 0751 -p "${directory}"
+
+    touch "${interface_file}"
+    chmod 0640 "${interface_file}"
+    echo "${2:?'no interface specified'}" > "${interface_file}"
+    ;;
+  'print-output')
+    read -r rxrate txrate < "${output_file}"
+    echo "↓ $(numfmt --to iec --format '%.2f' "${rxrate}")B/s ↑ $(numfmt --to iec --format '%.2f' "${txrate}")B/s"
+    ;;
+  'stop')
+    kill -SIGTERM ${2:?'PID of main process required to stop'}
+    rm -f "${output_file}"
+    tail --pid=${2} -f /dev/null
+    rm -f "${output_file}"
+    ;;
+  *)
+    echo 'unknown command' >&2
+    exit 2
+    ;;
+esac
