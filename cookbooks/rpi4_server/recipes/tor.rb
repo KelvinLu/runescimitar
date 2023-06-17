@@ -11,6 +11,8 @@ TOR_PROJECT_PUBKEY = '74A941BA219EC810'
 
 lsb_release_codename = `lsb_release -c`.strip.delete_prefix("Codename:\t")
 
+operator_user = Etc.getpwnam(node['rpi4_server']&.[]('operator_user'))
+
 node.default['rpi4_server']['tor']['hidden_services'] = []
 
 apt_package 'apt-transport-https' do
@@ -81,4 +83,15 @@ end
 
 systemd_unit 'tor.service' do
   action :nothing
+end
+
+apt_package 'nyx' do
+  action :install
+end
+
+group 'debian-tor' do
+  append true
+  members [operator_user.name]
+
+  action :modify
 end
