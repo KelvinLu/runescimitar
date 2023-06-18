@@ -16,6 +16,9 @@ directory home_bin_dir do
 end
 
 {
+  sudo: '/usr/bin/sudo',
+  systemctl: '/usr/bin/systemctl',
+
   ls: '/usr/bin/ls',
   mv: '/usr/bin/mv',
   cp: '/usr/bin/cp',
@@ -54,6 +57,9 @@ end
   bx: '/usr/local/bin/bx',
 
   'sparrow-terminal': '/opt/sparrow-server/bin/Sparrow',
+
+  lnd: '/usr/local/bin/lnd',
+  lncli: '/usr/local/bin/lncli',
 }.each do |symlink, path|
   link File.join(home_bin_dir, symlink.to_s) do
     to path

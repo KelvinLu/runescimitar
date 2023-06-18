@@ -57,6 +57,10 @@ template '/var/bitcoin/.bitcoin/bitcoin.conf' do
   notifies :run, 'ruby_block[check rpcauth file]', :before
 end
 
+link '/var/bitcoin/datadir/bitcoin.conf' do
+  to '/var/bitcoin/.bitcoin/bitcoin.conf'
+end
+
 file '/var/bitcoin/datadir/debug.log' do
   user lazy { Etc.getpwnam('bitcoin').uid }
   group lazy { Etc.getpwnam('bitcoin').gid }

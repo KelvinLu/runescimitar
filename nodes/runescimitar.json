@@ -110,6 +110,26 @@
     }
   },
 
+  "lightning_node": {
+    "lnd_datadir_location":     "/storage/data",
+
+    "lnd": {
+      "version":                "0.16.3-beta",
+
+      "sha256_checksums": {
+        "archive_targz":        "2f50b9123d5af154c7ea42120fd5a185668daf3d519e06c1deb8c20005986006",
+        "manifest_txt":         "a69e6a2fb2832849df6f6fd5a6b25f07300215e2b72a29b276884bfe5a2d6e74",
+        "manifest_sig":         "a1feeda46dc7054c9b5c2d648bf4f6887d6abcbdacceab26125f18d4838bf095",
+        "manifest_sig_ots":     "55ed02dee12c24a26484c36126e14ef7067c361d83cac4e12054838f0f68044a",
+        "roasbeef_gpg_key":     "6b196ef3d63804d1d3665f9c3184763e86858529ac49f94c964a5980e85738d3"
+      }
+    },
+
+    "service_require": {
+      "lnd.service":            ["var.mount", "storage-data.mount"]
+    }
+  },
+
   "bitcoin_users": {
     "root_location":            "/storage/data",
 
@@ -226,6 +246,9 @@
     "recipe[bitcoin_users::guest_user]",
 
     "recipe[bitcoin_users::user_wallet]",
-    "recipe[bitcoin_users::firefox]"
+    "recipe[bitcoin_users::firefox]",
+
+    "recipe[lightning_node::lnd]",
+    "recipe[lightning_node::personal_user]"
   ]
 }

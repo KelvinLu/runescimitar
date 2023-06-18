@@ -1,0 +1,68 @@
+[Application Options]
+alias=<%= @node_alias %>
+color=#317C95
+
+maxpendingchannels=5
+
+listen=localhost
+
+debuglevel=info
+
+wallet-unlock-allow-create=false
+
+adminmacaroonpath=/var/lnd/macaroon/admin.macaroon
+readonlymacaroonpath=/var/lnd/macaroon/readonly.macaroon
+invoicemacaroonpath=/var/lnd/macaroon/invoice.macaroon
+
+# Automatically regenerate certificate when near expiration
+tlsautorefresh=true
+# Do not include the interface IPs or the system hostname in TLS certificate.
+tlsdisableautofill=true
+
+# Channel settings
+bitcoin.basefee=1000
+bitcoin.feerate=1
+minchansize=100000
+accept-keysend=true
+accept-amp=true
+protocol.wumbo-channels=true
+coop-close-target-confs=24
+
+# Watchtower
+wtclient.active=true
+
+# Performance
+gc-canceled-invoices-on-startup=true
+gc-canceled-invoices-on-the-fly=true
+ignore-historical-gossip-filters=1
+stagger-initial-reconnect=true
+
+[signrpc]
+signrpc.signermacaroonpath=/var/lnd/macaroon/signer.macaroon
+
+[walletrpc]
+walletrpc.walletkitmacaroonpath=/var/lnd/macaroon/walletkit.macaroon
+
+[chainrpc]
+chainrpc.notifiermacaroonpath=/var/lnd/macaroon/chainnotifier.macaroon
+
+[routerrpc]
+routerrpc.routermacaroonpath=/var/lnd/macaroon/router.macaroon
+
+# Database
+[bolt]
+db.bolt.auto-compact=true
+db.bolt.auto-compact-min-age=168h
+
+[Bitcoin]
+bitcoin.active=true
+bitcoin.mainnet=true
+bitcoin.node=bitcoind
+
+[Bitcoind]
+bitcoind.dir=/var/bitcoin/datadir
+
+[tor]
+tor.active=true
+tor.v3=true
+tor.streamisolation=true
