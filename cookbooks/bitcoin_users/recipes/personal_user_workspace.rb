@@ -4,11 +4,12 @@
 #
 # Copyright:: 2022, The Authors, All Rights Reserved.
 
-params = node['bitcoin_users'].fetch('personal_user')
-username = params.fetch('name')
+root_location = node['bitcoin_users'].fetch('root_location', '/home')
+params        = node['bitcoin_users'].fetch('personal_user')
+username      = params.fetch('name')
 
-workspace_dir = File.join('/storage/data/', username, 'home/', username, 'workspace/')
-encrypted_dir = File.join('/storage/data/', username, 'home/', username, '.workspace/')
+workspace_dir = File.join(root_location, username, 'home/', username, 'workspace/')
+encrypted_dir = File.join(root_location, username, 'home/', username, '.workspace/')
 
 apt_package 'gocryptfs' do
   action :install

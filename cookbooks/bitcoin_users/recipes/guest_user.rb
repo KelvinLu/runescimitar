@@ -4,15 +4,16 @@
 #
 # Copyright:: 2022, The Authors, All Rights Reserved.
 
-params    = node['bitcoin_users'].fetch('guest_user')
-username  = params.fetch('name')
+root_location = node['bitcoin_users'].fetch('root_location', '/home')
+params        = node['bitcoin_users'].fetch('guest_user')
+username      = params.fetch('name')
+
+outer_home_dir  = File.join(root_location, username)
+inner_home_dir  = File.join(outer_home_dir, 'home')
+user_home_dir   = File.join(inner_home_dir, username)
+user_bin_dir    = File.join(user_home_dir, '.bin')
 
 login_shell     = File.join('/home/.login-shell/', username)
-
-storage_dir     = File.join('/storage/data/', username)
-bound_home_dir  = File.join(storage_dir, 'home')
-user_home_dir   = File.join(bound_home_dir, username)
-user_bin_dir    = File.join(user_home_dir, '.bin')
 
 i3_config_dir   = File.join(user_home_dir, '.config', 'i3')
 vim_colors_dir  = File.join(user_home_dir, '.vim', 'colors')
@@ -24,21 +25,21 @@ user username do
   manage_home false
 end
 
-directory File.dirname(login_shell) do
-  mode '0755'
-end
-
-directory storage_dir do
+directory outer_home_dir do
   mode '0751'
 end
 
-directory bound_home_dir do
+directory inner_home_dir do
   mode '0751'
 end
 
 directory user_home_dir do
   group lazy { Etc.getpwnam(username).gid }
   mode '0751'
+end
+
+directory File.dirname(login_shell) do
+  mode '0755'
 end
 
 cookbook_file login_shell do

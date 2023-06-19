@@ -4,11 +4,12 @@
 #
 # Copyright:: 2022, The Authors, All Rights Reserved.
 
-params = node['bitcoin_users'].fetch('guest_user')
-username = params.fetch('name')
+root_location = node['bitcoin_users'].fetch('root_location', '/home')
+params        = node['bitcoin_users'].fetch('guest_user')
+username      = params.fetch('name')
 
-user_home_dir = File.join('/storage/data/', username, 'home/')
-workspace_dir = File.join('/storage/data/', username, 'home/', username, 'workspace/')
+user_home_dir = File.join(root_location, username, 'home/')
+workspace_dir = File.join(root_location, username, 'home/', username, 'workspace/')
 
 tmpfs_size_mb = params.fetch('tmpfs_workspace').fetch('size_mb')
 
@@ -21,13 +22,13 @@ end
 ruby_block "assert #{workspace_dir} is empty" do
   block { raise "Expected #{workspace_dir} to be empty" unless Dir.empty?(workspace_dir) }
 
-  only_if { get_mount_point(workspace_dir) == '/storage/data' }
+  only_if { get_mount_point(workspace_dir) == get_mount_point(root_location) }
 end
 
 execute "set immutable attribute #{workspace_dir}" do
   command ['chattr', '+i', workspace_dir]
 
-  only_if { get_mount_point(workspace_dir) == '/storage/data' }
+  only_if { get_mount_point(workspace_dir) == get_mount_point(root_location) }
 end
 
 ruby_block 'Add user mount for tmpfs workspace' do

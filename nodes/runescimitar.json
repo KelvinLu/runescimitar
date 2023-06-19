@@ -111,6 +111,8 @@
   },
 
   "bitcoin_users": {
+    "root_location":            "/storage/data",
+
     "personal_user": {
       "name":                   "cleric",
 
@@ -133,6 +135,7 @@
         }
       }
     },
+
     "guest_user": {
       "name":                   "nomad",
 

@@ -4,10 +4,11 @@
 #
 # Copyright:: 2022, The Authors, All Rights Reserved.
 
-params    = node['bitcoin_users'].fetch('guest_user')
-username  = params.fetch('name')
+root_location = node['bitcoin_users'].fetch('root_location', '/home')
+params        = node['bitcoin_users'].fetch('guest_user')
+username      = params.fetch('name')
 
-home_bin_dir = File.join('/storage/data/', username, 'home/', username, '.bin')
+home_bin_dir = File.join(root_location, username, 'home/', username, '.bin')
 
 directory home_bin_dir do
   group lazy { Etc.getpwnam(username).gid }
