@@ -5,6 +5,7 @@ color=#317C95
 maxpendingchannels=5
 
 listen=localhost
+rpclisten=127.0.0.1:10009
 
 debuglevel=info
 
@@ -48,6 +49,9 @@ chainrpc.notifiermacaroonpath=/var/lnd/macaroon/chainnotifier.macaroon
 
 [routerrpc]
 routerrpc.routermacaroonpath=/var/lnd/macaroon/router.macaroon
+
+[rpcmiddleware]
+rpcmiddleware.enable=true
 
 # Database
 [bolt]

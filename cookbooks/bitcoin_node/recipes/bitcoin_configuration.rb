@@ -24,6 +24,10 @@ ruby_block 'check rpcauth file' do
     unless File.exist?('/var/bitcoin/.bitcoin/rpcauth.txt')
       raise 'rpcauth.txt must be generated (see rpcauth.py)'
     end
+
+    unless File.stat('/var/bitcoin/.bitcoin/rpcauth.txt').mode & 07777 == 0600
+      raise 'rpcauth.txt must have file permissions of 0600'
+    end
   end
 
   action :nothing

@@ -60,6 +60,10 @@ end
 
   lnd: '/usr/local/bin/lnd',
   lncli: '/usr/local/bin/lncli',
+
+  loop: '/usr/local/bin/loop',
+  pool: '/usr/local/bin/pool',
+  frcli: '/usr/local/bin/frcli',
 }.each do |symlink, path|
   link File.join(home_bin_dir, symlink.to_s) do
     to path

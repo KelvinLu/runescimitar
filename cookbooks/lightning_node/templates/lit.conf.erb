@@ -1,0 +1,48 @@
+# The host:port to listen for incoming HTTP/2 connections on for the web UI only.
+httpslisten=0.0.0.0:8443
+
+uipassword_file=/var/lightning-terminal/.uipassword.txt
+
+macaroonpath=/var/lightning-terminal/macaroon/lit.macaroon
+
+# Remote options
+remote.lit-debuglevel=info
+
+# Remote lnd options
+remote.lnd.rpcserver=127.0.0.1:10009
+remote.lnd.macaroonpath=/var/lnd/macaroon/admin.macaroon
+remote.lnd.tlscertpath=/var/lnd/.lnd/tls.cert
+
+#################
+#     Loop      #
+#################
+
+loop.loopoutmaxparts=5
+# Path to Loop's own macaroon
+loop.macaroonpath=/var/lightning-terminal/macaroon/loop.macaroon
+
+#################
+#     Pool      #
+#################
+
+# This option avoids the creation of channels with nodes with whom you already have a channel (set to 0 if you don't mind)
+pool.newnodesonly=1
+# Path to Pool's own macaroon
+pool.macaroonpath=/var/lightning-terminal/macaroon/pool.macaroon
+
+##################
+#     Faraday    #
+##################
+
+# If connect_bitcoin is set to 1, Faraday can connect to a bitcoin node (with --txindex set) to provide node accounting services
+faraday.connect_bitcoin=1
+# The minimum amount of time that a channel must be monitored for before recommending termination
+faraday.min_monitored=72h
+
+###################
+# Faraday-Bitcoin #
+###################
+
+faraday.bitcoin.host=127.0.0.1:8331
+faraday.bitcoin.user=faraday
+faraday.bitcoin.password=<%= @faraday_bitcoind_password %>

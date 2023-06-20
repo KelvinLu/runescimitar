@@ -48,3 +48,13 @@ directory '/etc/nginx/streams-enabled' do
   group lazy { Etc.getpwnam('nginx').gid }
   mode '0755'
 end
+
+execute 'nginx test configuration' do
+  command %w[nginx -t]
+
+  action :nothing
+end
+
+systemd_unit 'nginx.service' do
+  action :nothing
+end

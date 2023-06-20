@@ -229,10 +229,9 @@ file '/etc/nginx/snippets/nginx-mempool.conf' do
   content File.read('/var/opt/mempool/nginx-mempool.conf')
 
   mode '0644'
-end
 
-systemd_unit 'nginx.service' do
-  action :reload
+  notifies :run, 'execute[nginx test configuration]', :immediate
+  notifies :reload, 'systemd_unit[nginx.service]', :delayed
 end
 
 cookbook_file '/etc/systemd/system/mempool.service' do

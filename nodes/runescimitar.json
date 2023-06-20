@@ -114,14 +114,26 @@
     "lnd_datadir_location":     "/storage/data",
 
     "lnd": {
-      "version":                "0.16.3-beta",
+      "version":                "0.16.0-beta",
 
       "sha256_checksums": {
-        "archive_targz":        "2f50b9123d5af154c7ea42120fd5a185668daf3d519e06c1deb8c20005986006",
-        "manifest_txt":         "a69e6a2fb2832849df6f6fd5a6b25f07300215e2b72a29b276884bfe5a2d6e74",
-        "manifest_sig":         "a1feeda46dc7054c9b5c2d648bf4f6887d6abcbdacceab26125f18d4838bf095",
-        "manifest_sig_ots":     "55ed02dee12c24a26484c36126e14ef7067c361d83cac4e12054838f0f68044a",
+        "archive_targz":        "63d6a37d77942735ef58a59208ca1bb4d6a5ddfe554c2664ec3f5020ffab2414",
+        "manifest_txt":         "549be9bd8825d75e31692a7baa04afb866b3bf2c2f6a7d42117b4cdbaa8eb486",
+        "manifest_sig":         "a8e0aa21be7857918ed6e4ba9237fe597bef7b255b7fc58715befa156568f29e",
+        "manifest_sig_ots":     "7d6efcc1a5f67177d714eaa4d916fe68b1e202630ebc9dfe26e41bc64ee37f9e",
+
         "roasbeef_gpg_key":     "6b196ef3d63804d1d3665f9c3184763e86858529ac49f94c964a5980e85738d3"
+      }
+    },
+
+    "lightning_terminal": {
+      "version":                "0.10.1-alpha",
+
+      "sha256_checksums": {
+        "archive_targz":        "86643e24c1e76762d0f7963afb44192fda24ad521c9e6f64dbdbe3d11101604a",
+        "manifest_txt":         "91939aef4298c8e77f8ddec29aad86ac896e28d9ad9a7150532e4f79dd1d1dee",
+        "manifest_sig":         "cbacec533b3683783ffc1613b915934e7b4bc27cfc9792b26d921ace2e51a6c5",
+        "manifest_sig_ots":     "dc5e7a30d9b91c29fd91a831fcc377166f383eea20d1e0f7ca14828856594bc5"
       }
     },
 
@@ -141,6 +153,11 @@
           "bindsym":            "m",
           "label":              "Mempool",
           "command":            "kiosk-firefox https://localhost:4081"
+        },
+        {
+          "bindsym":            "t",
+          "label":              "Lightning Terminal",
+          "command":            "kiosk-firefox https://localhost:8443"
         }
       ],
 
@@ -249,6 +266,10 @@
     "recipe[bitcoin_users::firefox]",
 
     "recipe[lightning_node::lnd]",
+
+    "recipe[lightning_node::lightning_terminal]",
+    "recipe[lightning_node::ride_the_lightning]",
+
     "recipe[lightning_node::personal_user]"
   ]
 }
