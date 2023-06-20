@@ -58,6 +58,23 @@ file '/var/mempool/.bitcoind-password' do
   action :create_if_missing
 end
 
+template '/var/btc-rpc-proxy/conf.d/mempool.toml' do
+  source 'btc-rpc-proxy_mempool.toml.erb'
+  sensitive true
+
+  variables lazy {
+    bitcoind_password = File.read('/var/mempool/.bitcoind-password')
+
+    { bitcoind_password: bitcoind_password }
+  }
+
+  group lazy { Etc.getpwnam('btc-rpc-proxy').gid }
+
+  mode '0640'
+
+  notifies :restart, 'systemd_unit[btc-rpc-proxy.service]', :delayed
+end
+
 execute 'set mysql password' do
   command lazy {
     password = File.read('/var/mempool/.mariadb-password')

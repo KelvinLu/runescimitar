@@ -135,9 +135,11 @@ execute 'verify opentimestamps (bitcoin core)' do
       'verify', 'SHA256SUMS.ots', '-f', 'SHA256SUMS'
     ]
   }
+  environment ({ 'HOME' => Dir.home(operator_user), 'USER' => operator_user })
   cwd var_opt_directory
 
   user operator_user
+  group 'bitcoin'
 
   returns lazy {
     [0, *(local_bitcoind_listening? ? nil : 1)]
@@ -146,7 +148,7 @@ execute 'verify opentimestamps (bitcoin core)' do
   action :nothing
 end
 
-directory 'bitcoin archive extacted directory' do
+directory 'bitcoin archive extracted directory' do
   path File.join(var_opt_directory, qualified_name)
   mode '0755'
 
@@ -170,15 +172,17 @@ execute 'extract bitcoin archive' do
   notifies :run, 'execute[checksums sha256sums (bitcoin core)]', :before
   notifies :run, 'execute[gpg verify sha256sums .asc signature (bitcoin core)]', :before
   notifies :run, 'execute[verify opentimestamps (bitcoin core)]', :before
-  notifies :create_if_missing, 'directory[bitcoin archive extacted directory]', :before
+  notifies :create_if_missing, 'directory[bitcoin archive extracted directory]', :before
 end
 
 execute 'install bitcoin core' do
-  command [
-    'install', '-m', '0755', '-o', 'root', '-g', 'root',
-    '-t', '/usr/local/bin',
-    *(Dir[File.join(var_opt_directory, versioned_name, 'bin', '*')])
-  ]
+  command lazy {
+    [
+      'install', '-m', '0755', '-o', 'root', '-g', 'root',
+      '-t', '/usr/local/bin',
+      *(Dir[File.join(var_opt_directory, versioned_name, 'bin', '*')])
+    ]
+  }
 
   only_if { `which bitcoind`.empty? }
 
