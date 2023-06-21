@@ -4,3 +4,4 @@ version '0.1.0'
 chef_version '>= 15.0'
 
 depends 'rpi4_server'
+depends 'applications'

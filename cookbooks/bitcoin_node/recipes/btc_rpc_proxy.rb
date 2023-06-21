@@ -7,14 +7,7 @@
 git_ref = node['bitcoin_node'].fetch('btc_rpc_proxy').fetch('git_ref')
 
 include_recipe 'bitcoin_node::bitcoin_core'
-
-apt_package 'rustc' do
-  action :install
-end
-
-apt_package 'cargo' do
-  action :install
-end
+include_recipe 'applications::rust'
 
 user 'btc-rpc-proxy' do
   system true

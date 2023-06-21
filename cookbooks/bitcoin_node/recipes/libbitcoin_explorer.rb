@@ -6,33 +6,7 @@
 
 git_ref = node['bitcoin_node'].fetch('libbitcoin_explorer').fetch('git_ref')
 
-apt_package 'g++-9' do
-  action :install
-end
-
-apt_package 'clang-11' do
-  action :install
-end
-
-apt_package 'build-essential' do
-  action :install
-end
-
-apt_package 'autoconf' do
-  action :install
-end
-
-apt_package 'automake' do
-  action :install
-end
-
-apt_package 'libtool' do
-  action :install
-end
-
-apt_package 'pkg-config' do
-  action :install
-end
+include_recipe 'applications::cpp_build_tools'
 
 directory '/opt/libbitcoin-explorer' do
   mode '0755'

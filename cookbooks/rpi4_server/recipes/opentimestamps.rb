@@ -6,25 +6,7 @@
 
 operator_user = node['rpi4_server'].fetch('operator_user')
 
-apt_package 'python3' do
-  action :install
-end
-
-apt_package 'python3-dev' do
-  action :install
-end
-
-apt_package 'python3-pip' do
-  action :install
-end
-
-apt_package 'python3-setuptools' do
-  action :install
-end
-
-apt_package 'python3-wheel' do
-  action :install
-end
+include_recipe 'applications::python'
 
 execute 'pip3 install opentimestamps-client' do
   command %w[pip3 install opentimestamps-client]
