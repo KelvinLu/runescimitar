@@ -137,6 +137,17 @@
       }
     },
 
+    "ride_the_lightning": {
+      "version":                "0.14.0",
+
+      "sha256_checksums": {
+        "archive_targz":        "38eda5884521000f4a46d77254b32c40a710eff97583136dbf0c83d4bbf40ad9",
+        "archive_targz_sig":    "29493ac344c734e9ad48bd535e165e0cceff7c01a1b825ad24c1611e7cd1d85b",
+
+        "saubyk_gpg_key":       "3d89773a42801624e16f630419d6d8dc866f21741af7b50a9f530d127d6db932"
+      }
+    },
+
     "service_require": {
       "lnd.service":            ["var.mount", "storage-data.mount"]
     }
@@ -158,6 +169,11 @@
           "bindsym":            "t",
           "label":              "Lightning Terminal",
           "command":            "kiosk-firefox https://localhost:8443"
+        },
+        {
+          "bindsym":            "r",
+          "label":              "Ride The Lightning",
+          "command":            "kiosk-firefox https://localhost:4001"
         }
       ],
 
