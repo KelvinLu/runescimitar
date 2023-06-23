@@ -2,10 +2,54 @@
 
 `runescimitar` is a node based on the Raspberry Pi 4, running Ubuntu Server.
 
-Its purpose is to be a portable Bitcoin full node.
+Its purpose is to be a portable Bitcoin full node, with many personal features.
 
 Most of the setup is based on the excellent RaspiBolt guide
 (https://raspibolt.org).
+
+Obviously, feel free to take inspiration or fork this repository.
+
+## On Bitcoin ...
+
+Although the setup provides the `personal_user` a `gocryptfs`-mounted
+"`~/workspace`", as well as `fstab` entries to reference actual removable media
+items, _**the user should not store or transmit private key material through the
+server or these mechanisms**_.
+
+These features only aim to provide low-level security, which is suitable for
+data relegated to less sensitive categories (_e.g.; public key material, PSBTs,
+confidential notes, etc._) whose compromise would only jeopardize privacy
+concerns and such (_i.e.; having no ability to ultimately control funds_).
+
+For storing and using private keys, consider using an air-gapped solution
+(_e.g.; a dedicated hardware wallet_) or any other implement besides this server.
+Movement and control of funds should incorporate the usage of PSBTs.
+
+## Features
+
+- Three users; `wizard` (_operator, superuser_), `cleric` (_personal user_), and
+  `nomad` (_guest user_).
+- RaspiBolt-inspired ...
+    - ... Bitcoin full node (_running Bitcoin Core, a Fulcrum SPV server, and
+      having Sparrow wallet_).
+    - ... Lightning node (_running LND, with Lightning Terminal and Ride The
+      Lightning_).
+    - ... visibility features (_Mempool_).
+    - ... applications (_`Tor`, `nginx`_).
+    - ... administration (_`ufw`, `fail2ban`_).
+    - ... system configuration (_`ulimit`s, swap space, `zram`_).
+- Other features ...
+    - X11 setup with `i3wm`, alongside personal themes and customization.
+    - Remove Ubuntu Server cruft (_`snapd`, `cloud-init`,
+      `unattended_upgrades`_).
+    - Exploration tools (_`bx`/`libbitcoin-explorer`_).
+    - Userspace-encrypted (_`gocryptfs`_) and temporary (_`tmpfs`_) workspace
+      directories (_for the personal and guest user, respectively_).
+    - Configuration for using physical media (_`fstab` entries for external
+      drives and removable media_).
+        - e.g.; for placing the blockchain, or otherwise for different purposes
+          using various filesystems, across separate partitions and drives.
+    - ... and more!
 
 ## Setup
 
@@ -55,6 +99,16 @@ Most of the setup is based on the excellent RaspiBolt guide
 ## Procedures
 
 ### Bind-mounting `/var` across filesystems
+
+> The `rpi4_server::var_mount` recipe allows for binding `/var` across a
+> different filesystem (e.g.; external drive).
+>
+> See `node['rpi4_server']['var_mount']['marker_file']`.
+>
+> This may be useful if the root filesystem remains on the Raspberry Pi's SD
+> card, and if `/var` should be mounted elsewhere (e.g.; to avoid heavy write
+> usage onto the SD card, without needing to vacate the root filesystem itself
+> elsewhere).
 
 - Procure an alternate location on a secondary filesystem (i.e.; a filesystem
   that is currently not hosting `/` -- see `df -hT`) to host `/var`.
