@@ -63,6 +63,8 @@ end
   loop: '/usr/local/bin/loop',
   pool: '/usr/local/bin/pool',
   frcli: '/usr/local/bin/frcli',
+
+  lntop: '/usr/local/bin/lntop',
 }.each do |symlink, path|
   link File.join(home_bin_dir, symlink.to_s) do
     to path

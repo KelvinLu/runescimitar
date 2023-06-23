@@ -169,3 +169,27 @@ file File.join(Dir.home(username), 'lit-faraday') do
     frcli --rpcserver=localhost:8443 --tlscertpath=/var/lightning-terminal/.lit/tls.cert --macaroonpath=/var/lightning-terminal/.faraday/mainnet/faraday.macaroon "$@"
   BASH
 end
+
+directory File.join(Dir.home(username), '.lntop') do
+  group lazy { Etc.getpwnam(username).gid }
+  mode '0751'
+end
+
+file File.join(Dir.home(username), '.lntop', 'lntop.log') do
+  user lazy { Etc.getpwnam(username).uid }
+  group lazy { Etc.getpwnam(username).gid }
+
+  mode '0640'
+
+  action :create_if_missing
+end
+
+cookbook_file File.join(Dir.home(username), '.lntop', 'config.toml') do
+  source 'lntop-config.toml'
+
+  user lazy { Etc.getpwnam(username).uid }
+  group lazy { Etc.getpwnam(username).gid }
+  mode '0640'
+
+  action :create_if_missing
+end

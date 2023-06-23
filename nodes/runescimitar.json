@@ -148,6 +148,18 @@
       }
     },
 
+    "lntop": {
+      "version":                "0.4.0",
+
+      "sha256_checksums": {
+        "archive_targz":        "720e60ec0aa92db12e03ea8e3e8fc2fcb46248654a395b6aceb8553a5251e92f",
+        "checksums_txt":        "b42882987fdb681d35ae897e818bf3fe8cb4e406e71cab5c111d6cefcd5817f2",
+        "checksums_txt_sig":    "38850a1f3a38845debe0950c54387ab94d4ad5dff543eace89fef7829f9296d8",
+
+        "edouardparis_gpg_key": "fdbf14f5efd896beffe1b4a801d686905f92f14e0893867d70164ead6ea470b8"
+      }
+    },
+
     "service_require": {
       "lnd.service":            ["var.mount", "storage-data.mount"]
     }
@@ -285,6 +297,8 @@
 
     "recipe[lightning_node::lightning_terminal]",
     "recipe[lightning_node::ride_the_lightning]",
+
+    "recipe[lightning_node::lntop]",
 
     "recipe[lightning_node::personal_user]"
   ]
