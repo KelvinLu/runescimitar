@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: i3wm
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 apt_package 'i3' do
   action :install

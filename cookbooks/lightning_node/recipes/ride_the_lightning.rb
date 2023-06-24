@@ -2,7 +2,6 @@
 # Cookbook:: lightning_node
 # Recipe:: ride_the_lightning
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 GITHUB_RTL_ARCHIVE_URL = Proc.new { |version| "https://github.com/Ride-The-Lightning/RTL/archive/refs/tags/v#{version}.tar.gz" }
 GITHUB_RTL_SIGNATURE_URL = Proc.new { |version| "https://github.com/Ride-The-Lightning/RTL/releases/download/v#{version}/v#{version}.tar.gz.asc" }

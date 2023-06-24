@@ -2,7 +2,6 @@
 # Cookbook:: bitcoin_users
 # Recipe:: personal_user_bin
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 root_location = node['bitcoin_users'].fetch('root_location', '/home')
 params        = node['bitcoin_users'].fetch('personal_user')

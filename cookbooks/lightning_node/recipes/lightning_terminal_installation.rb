@@ -2,7 +2,6 @@
 # Cookbook:: lightning_node
 # Recipe:: lightning_terminal_installation
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 GITHUB_LIT_RELEASES_URL = Proc.new { |version, filename| "https://github.com/lightninglabs/lightning-terminal/releases/download/v#{version}/#{filename.call(version)}" }
 

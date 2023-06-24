@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: storage
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 STORAGE_DIR = '/storage'
 

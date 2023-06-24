@@ -2,7 +2,6 @@
 # Cookbook:: applications
 # Recipe:: nodejs
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 NODEJS_PACKAGE_ARCHIVE = 'https://nodejs.org/dist/v18.16.0/node-v18.16.0-linux-arm64.tar.xz'
 

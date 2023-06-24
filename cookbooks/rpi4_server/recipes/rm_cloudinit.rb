@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: rm_cloudinit
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 file '/etc/cloud/cloud-init.disabled' do
   action :create_if_missing

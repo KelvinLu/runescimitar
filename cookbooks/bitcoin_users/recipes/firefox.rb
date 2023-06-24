@@ -2,7 +2,6 @@
 # Cookbook:: bitcoin_users
 # Recipe:: firefox
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 apt_package 'firefox' do
   action :install

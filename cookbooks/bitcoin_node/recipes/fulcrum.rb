@@ -2,7 +2,6 @@
 # Cookbook:: bitcoin_node
 # Recipe:: fulcrum
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 GITHUB_FULCRUM_RELEASES_URL = Proc.new { |version, filename| "https://github.com/cculianu/Fulcrum/releases/download/v#{version}/#{filename.call(version)}" }
 

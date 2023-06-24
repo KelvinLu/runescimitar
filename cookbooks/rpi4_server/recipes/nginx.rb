@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: nginx
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 server_name   = node['name'] || 'localhost'
 file_basename = "#{server_name}_self-signed"

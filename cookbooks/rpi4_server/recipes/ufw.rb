@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: ufw
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 apt_package 'ufw' do
   action :install

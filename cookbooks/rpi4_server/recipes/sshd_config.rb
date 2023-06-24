@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: sshd_config
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 allow_users = [*node['rpi4_server']&.[]('ssh_allow_users')]
 deny_users = [*node['rpi4_server']&.[]('ssh_deny_users')]

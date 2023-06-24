@@ -2,7 +2,6 @@
 # Cookbook:: applications
 # Recipe:: cpp_build_tools
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 apt_package 'g++-9' do
   action :install

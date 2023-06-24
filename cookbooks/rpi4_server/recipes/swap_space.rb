@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: swap_space
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 include_recipe 'rpi4_server::storage'
 

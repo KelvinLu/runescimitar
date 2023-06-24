@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: dtoverlay
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 USERCFG_TXT                 = '/boot/firmware/usercfg.txt'
 

@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: tor
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 TOR_PROJECT_GPG_KEY_URL = 'https://deb.torproject.org/torproject.org/A3C4F0F979CAA22CDBA8F512EE8CBC9E886DDD89.asc'
 SHA256_DIGEST_ASCII_ARMORED_KEY = '7b3fec7e6928ec67c6342a78ed9b2d647d034d0d01c9dd17864f4d7c04bf1347'

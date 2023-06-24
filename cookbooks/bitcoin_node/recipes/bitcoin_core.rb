@@ -2,7 +2,6 @@
 # Cookbook:: bitcoin_node
 # Recipe:: bitcoin_core
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 alternate_blocksdir_location = node['bitcoin_node']&.[]('blocksdir_location')
 

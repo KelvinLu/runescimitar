@@ -2,7 +2,6 @@
 # Cookbook:: applications
 # Recipe:: python
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 apt_package 'python3' do
   action :install

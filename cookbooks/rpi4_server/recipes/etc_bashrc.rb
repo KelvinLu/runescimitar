@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: etc_bashrc
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 COMMENT_PS1_PROMPT = '# PS1 prompt'
 PATTERN_PS1_PROMPT = /#{COMMENT_PS1_PROMPT}$/

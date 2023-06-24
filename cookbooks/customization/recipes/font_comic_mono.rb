@@ -2,7 +2,6 @@
 # Cookbook:: customization
 # Recipe:: font_comic_mono
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 directory '/usr/share/fonts/TTF/' do
   mode    '0755'

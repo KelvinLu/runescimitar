@@ -2,7 +2,6 @@
 # Cookbook:: lightning_node
 # Recipe:: lnd_installation
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 GITHUB_LND_RELEASES_URL = Proc.new { |version, filename| "https://github.com/lightningnetwork/lnd/releases/download/v#{version}/#{filename.call(version)}" }
 

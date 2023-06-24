@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: network
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 COMMENT_NM_ALIASES = '# NetworkManager aliases'
 PATTERN_NM_ALIASES = /#{COMMENT_NM_ALIASES}$/

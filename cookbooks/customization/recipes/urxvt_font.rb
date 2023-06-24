@@ -2,7 +2,6 @@
 # Cookbook:: customization
 # Recipe:: urxvt_font
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 DEFAULT_FONT_SIZE = 12
 

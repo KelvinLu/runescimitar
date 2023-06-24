@@ -2,7 +2,6 @@
 # Cookbook:: bitcoin_node
 # Recipe:: bitcoin_core_installation
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 require 'json'
 require 'fileutils'

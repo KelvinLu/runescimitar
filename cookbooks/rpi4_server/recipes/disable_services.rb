@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: disable_services
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 systemd_unit 'chef-client.service' do
   action :stop

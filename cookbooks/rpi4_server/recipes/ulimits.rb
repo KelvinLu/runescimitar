@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: ulimits
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 user_ulimit '*' do
   filehandle_soft_limit 65_536

@@ -2,7 +2,6 @@
 # Cookbook:: lightning_node
 # Recipe:: lnd
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 alternate_datadir_location = node['lightning_node']&.[]('lnd_datadir_location')
 

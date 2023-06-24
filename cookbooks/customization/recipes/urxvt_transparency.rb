@@ -2,7 +2,6 @@
 # Cookbook:: customization
 # Recipe:: urxvt_transparency
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 PATTERN_URXVT_TRANSPARENT = /^URxvt\.transparent/
 PATTERN_URXVT_SHADING     = /^URxvt\.shading/

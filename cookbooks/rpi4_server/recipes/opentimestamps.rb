@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: opentimestamps
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 operator_user = node['rpi4_server'].fetch('operator_user')
 

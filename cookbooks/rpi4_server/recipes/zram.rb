@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: zram
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 swap_params = node['rpi4_server']&.[]('zram_swap')
 devices = swap_params['devices']

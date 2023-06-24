@@ -2,7 +2,6 @@
 # Cookbook:: bitcoin_node
 # Recipe:: sparrow
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 GITHUB_SPARROW_RELEASES_URL = Proc.new { |version, filename| "https://github.com/sparrowwallet/sparrow/releases/download/#{version}/#{filename.call(version)}" }
 

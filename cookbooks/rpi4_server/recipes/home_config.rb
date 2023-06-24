@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: home_config
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 operator_user = Etc.getpwnam(node['rpi4_server']&.[]('operator_user'))
 operator_home = Dir.home(operator_user.name)

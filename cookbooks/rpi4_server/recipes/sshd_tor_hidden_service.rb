@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: sshd_tor_hidden_service
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 include_recipe 'rpi4_server::tor'
 

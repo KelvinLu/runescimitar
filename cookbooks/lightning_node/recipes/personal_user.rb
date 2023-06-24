@@ -2,7 +2,6 @@
 # Cookbook:: lightning_node
 # Recipe:: personal_user
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 include_recipe 'bitcoin_users::personal_user'
 include_recipe 'lightning_node::lnd'

@@ -2,7 +2,6 @@
 # Cookbook:: bitcoin_users
 # Recipe:: guest_user_wallet
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 root_location = node['bitcoin_users'].fetch('root_location', '/home')
 

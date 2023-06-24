@@ -2,7 +2,6 @@
 # Cookbook:: bitcoin_node
 # Recipe:: mempool
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 git_ref = node['bitcoin_node'].fetch('mempool').fetch('git_ref')
 server_name = node['name'] || 'localhost'

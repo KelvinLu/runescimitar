@@ -2,7 +2,6 @@
 # Cookbook:: lightning_node
 # Recipe:: lnd_configuration
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 ruby_block 'check node alias file' do
   block do

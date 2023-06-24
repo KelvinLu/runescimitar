@@ -2,7 +2,6 @@
 # Cookbook:: lightning_node
 # Recipe:: lightning_terminal_configuration
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 include_recipe 'bitcoin_node::btc_rpc_proxy'
 include_recipe 'rpi4_server::ufw'

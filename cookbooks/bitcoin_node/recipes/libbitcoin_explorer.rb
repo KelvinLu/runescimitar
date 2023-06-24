@@ -2,7 +2,6 @@
 # Cookbook:: bitcoin_node
 # Recipe:: libbitcoin_explorer
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 git_ref = node['bitcoin_node'].fetch('libbitcoin_explorer').fetch('git_ref')
 

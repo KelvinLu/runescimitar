@@ -2,7 +2,6 @@
 # Cookbook:: bitcoin_node
 # Recipe:: bitcoin_configuration
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 remote_file 'bitcoin rpcauth script' do
   path '/var/bitcoin/rpcauth.py'

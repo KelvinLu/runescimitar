@@ -2,7 +2,6 @@
 # Cookbook:: rpi4_server
 # Recipe:: cmdline
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 CMDLINE_TXT         = '/boot/firmware/cmdline.txt'
 

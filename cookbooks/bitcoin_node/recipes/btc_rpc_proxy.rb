@@ -2,7 +2,6 @@
 # Cookbook:: bitcoin_node
 # Recipe:: btc_rpc_proxy
 #
-# Copyright:: 2022, The Authors, All Rights Reserved.
 
 git_ref = node['bitcoin_node'].fetch('btc_rpc_proxy').fetch('git_ref')
 
