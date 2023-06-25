@@ -1,0 +1,28 @@
+[Unit]
+Description=Circuit Breaker
+After=lnd.service
+
+[Service]
+
+# Service execution
+###################
+
+WorkingDirectory=/var/circuitbreaker/
+ExecStart=/opt/circuitbreaker/bin/circuitbreaker \
+		--rpcserver localhost:10009 \
+		--lnddir /var/circuitbreaker/.lnd \
+		--macaroonpath /var/lnd/macaroon/admin.macaroon
+User=circuitbreaker
+Group=circuitbreaker
+
+# Process management
+####################
+
+Type=simple
+KillMode=process
+TimeoutSec=60
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target

@@ -148,6 +148,10 @@
       }
     },
 
+    "circuit_breaker": {
+      "git_ref":                "53a70b2f788b7ccee117e80b59c4cb006d488070"
+    },
+
     "lntop": {
       "version":                "0.4.0",
 
@@ -186,6 +190,11 @@
           "bindsym":            "r",
           "label":              "Ride The Lightning",
           "command":            "kiosk-firefox https://localhost:4001"
+        },
+        {
+          "bindsym":            "c",
+          "label":              "Circuit Breaker",
+          "command":            "kiosk-firefox http://localhost:9235"
         }
       ],
 
@@ -297,6 +306,8 @@
 
     "recipe[lightning_node::lightning_terminal]",
     "recipe[lightning_node::ride_the_lightning]",
+
+    "recipe[lightning_node::circuit_breaker]",
 
     "recipe[lightning_node::lntop]",
 
