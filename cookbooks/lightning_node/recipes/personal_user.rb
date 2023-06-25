@@ -170,6 +170,26 @@ file File.join(Dir.home(username), 'lit-faraday') do
   BASH
 end
 
+file File.join(Dir.home(username), 'run-charge-lnd') do
+  group lazy { Etc.getpwnam(username).gid }
+  mode '0750'
+
+  content <<~BASH
+    #!/bin/bash
+    charge-lnd --macaroon /var/charge-lnd/macaroon/charge-lnd.macaroon --electrum-server localhost:50001 "$@"
+  BASH
+end
+
+file File.join(Dir.home(username), 'run-rebalance-lnd') do
+  group lazy { Etc.getpwnam(username).gid }
+  mode '0750'
+
+  content <<~BASH
+    #!/bin/bash
+    rebalance-lnd --lnddir /var/rebalance-lnd/.lnd "$@"
+  BASH
+end
+
 directory File.join(Dir.home(username), '.lntop') do
   group lazy { Etc.getpwnam(username).gid }
   mode '0751'

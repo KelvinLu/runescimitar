@@ -148,6 +148,14 @@
       }
     },
 
+    "charge_lnd": {
+      "git_ref":                "64c231ef9aab6ce1ce2454b8dd2a7f2d1aba5665"
+    },
+
+    "rebalance_lnd": {
+      "git_ref":                "3f8247c5436330ef9bce8e8510b2b5b163a7f3d8"
+    },
+
     "circuit_breaker": {
       "git_ref":                "53a70b2f788b7ccee117e80b59c4cb006d488070"
     },
@@ -307,6 +315,8 @@
     "recipe[lightning_node::lightning_terminal]",
     "recipe[lightning_node::ride_the_lightning]",
 
+    "recipe[lightning_node::charge_lnd]",
+    "recipe[lightning_node::rebalance_lnd]",
     "recipe[lightning_node::circuit_breaker]",
 
     "recipe[lightning_node::lntop]",

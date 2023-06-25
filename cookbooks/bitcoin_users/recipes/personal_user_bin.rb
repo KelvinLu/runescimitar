@@ -64,6 +64,9 @@ end
   pool: '/usr/local/bin/pool',
   frcli: '/usr/local/bin/frcli',
 
+  'charge-lnd': '/usr/local/bin/charge-lnd',
+  'rebalance-lnd': '/usr/local/bin/rebalance-lnd',
+
   lntop: '/usr/local/bin/lntop',
 }.each do |symlink, path|
   link File.join(home_bin_dir, symlink.to_s) do
