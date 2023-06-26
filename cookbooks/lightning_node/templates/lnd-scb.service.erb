@@ -1,0 +1,22 @@
+[Unit]
+Description=LND static channel backup
+Wants=lnd.service
+After=lnd.service
+
+[Service]
+ExecStart=/opt/lnd-scb/bin/scb-backup.sh
+
+Environment="LOCAL_BACKUP_DIR=<%= @backup_dir %>"
+
+Type=simple
+Restart=always
+RestartSec=600
+
+User=<%= @backup_user || 'lnd' %>
+
+RuntimeDirectory=lnd-scb
+RuntimeDirectoryMode=0710
+RuntimeDirectoryPreserve=restart
+
+[Install]
+WantedBy=multi-user.target

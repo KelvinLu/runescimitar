@@ -111,6 +111,9 @@
   },
 
   "lightning_node": {
+    "scb_local_dir" :           "~/usb-drive/lightning-material/scb",
+    "scb_backup_user" :         "cleric",
+
     "lnd_datadir_location":     "/storage/data",
 
     "lnd": {
@@ -311,6 +314,7 @@
     "recipe[bitcoin_users::firefox]",
 
     "recipe[lightning_node::lnd]",
+    "recipe[lightning_node::lnd_scb]",
 
     "recipe[lightning_node::lightning_terminal]",
     "recipe[lightning_node::ride_the_lightning]",

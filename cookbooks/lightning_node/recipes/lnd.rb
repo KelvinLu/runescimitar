@@ -48,6 +48,12 @@ directory '/var/lnd/.lnd' do
   mode '0751'
 end
 
+directory '/var/lnd/.scb' do
+  owner lazy { Etc.getpwnam('lnd').uid }
+  group lazy { Etc.getpwnam('lnd').gid }
+  mode '0751'
+end
+
 directory '/var/lnd/macaroon' do
   owner lazy { Etc.getpwnam('lnd').uid }
   group lazy { Etc.getpwnam('lnd').gid }
