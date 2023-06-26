@@ -34,9 +34,10 @@ Movement and control of funds should incorporate the usage of PSBTs.
       having Sparrow wallet_).
     - ... Lightning node (_running LND, with Lightning Terminal and Ride The
       Lightning_).
-    - ... visibility features (_Mempool_).
+    - ... fee and liquidity management (_`charge-lnd`, `rebalance-lnd`_).
+    - ... visibility features (_Mempool, `lntop`_).
     - ... applications (_`Tor`, `nginx`_).
-    - ... administration (_`ufw`, `fail2ban`_).
+    - ... administration (_`ufw`, `fail2ban`, Circuit Breaker_).
     - ... system configuration (_`ulimit`s, swap space, `zram`_).
 - Other features ...
     - X11 setup with `i3wm`, alongside personal themes and customization.
