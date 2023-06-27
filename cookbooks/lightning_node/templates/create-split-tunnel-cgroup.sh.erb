@@ -1,0 +1,27 @@
+#!/bin/sh
+
+set -e
+
+dir_netcls="/sys/fs/cgroup/net_cls"
+split_processes="/sys/fs/cgroup/net_cls/lightning_vpn"
+
+modprobe cls_cgroup
+
+if [ ! -d "$dir_netcls" ]; then
+  mkdir $dir_netcls
+
+  mount -t cgroup -o net_cls none $dir_netcls
+
+  echo '> Successfully added cgroup net_cls subsystem'
+fi
+
+if [ ! -d "$split_processes" ]; then
+  mkdir /sys/fs/cgroup/net_cls/lightning_vpn
+
+  echo '<%= @tc_handle %>' > /sys/fs/cgroup/net_cls/lightning_vpn/net_cls.classid
+  chmod 666 /sys/fs/cgroup/net_cls/lightning_vpn/tasks
+
+  echo '> Successfully assigned traffic control handle (<%= @tc_handle %>) for net_cls subsystem'
+else
+  echo '> Traffic control handle for net_cls subsystem already present'
+fi

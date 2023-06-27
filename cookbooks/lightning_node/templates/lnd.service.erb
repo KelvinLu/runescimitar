@@ -6,7 +6,7 @@ After=bitcoind.service <%= @after_units&.join(' ') %>
 [Service]
 # Service execution
 ###################
-ExecStart=/usr/local/bin/lnd
+ExecStart=<%= @lnd_command %>
 ExecStop=/usr/local/bin/lncli --macaroonpath /var/lnd/macaroon/admin.macaroon stop
 
 # Process management

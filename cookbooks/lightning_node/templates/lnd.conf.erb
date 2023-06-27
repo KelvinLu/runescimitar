@@ -4,7 +4,14 @@ color=#317C95
 
 maxpendingchannels=5
 
+<% if @hybrid_mode %>
+listen=0.0.0.0:9735
+<% else %>
 listen=localhost
+<% end %>
+<% unless @external_host.nil? %>
+externalhosts=<%= @external_host %>
+<% end %>
 rpclisten=127.0.0.1:10009
 restlisten=127.0.0.1:8080
 
@@ -73,4 +80,10 @@ bitcoind.dir=/var/bitcoin/datadir
 [tor]
 tor.active=true
 tor.v3=true
+<% if @hybrid_mode %>
+tor.streamisolation=false
+tor.skip-proxy-for-clearnet-targets=true
+<% else %>
 tor.streamisolation=true
+<% end %>
+

@@ -1,0 +1,6 @@
+[Unit]
+Description=lnd dependency on lightning-vpn (split tunnel VPN via WireGuard <%= @instance_name %>)
+Requires=lightning-vpn-create-cgroup.service
+After=lighting-vpn-create-cgroup.service
+Requires=wg-quick@<%= @instance_name %>.service
+After=wg-quick@<%= @instance_name %>.service

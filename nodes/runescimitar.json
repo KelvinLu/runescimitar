@@ -123,7 +123,14 @@
 
     "lnd_datadir_location":     "/storage/data",
 
+    "split_tunnel_vpn": {
+      "wireguard":              "/etc/wireguard/lightning-node.conf",
+      "traffic_control_handle": "0x00111122"
+    },
+
     "lnd": {
+      "hybrid_mode":            true,
+
       "version":                "0.16.0-beta",
 
       "sha256_checksums": {
@@ -304,6 +311,7 @@
     "recipe[rpi4_server::nginx]",
     "recipe[rpi4_server::tor]",
     "recipe[rpi4_server::sshd_tor_hidden_service]",
+    "recipe[rpi4_server::vpn]",
 
     "recipe[rpi4_server::opentimestamps]",
 
@@ -324,6 +332,8 @@
 
     "recipe[lightning_node::lnd]",
     "recipe[lightning_node::lnd_scb]",
+
+    "recipe[lightning_node::split_tunnel_vpn]",
 
     "recipe[lightning_node::lightning_terminal]",
     "recipe[lightning_node::ride_the_lightning]",

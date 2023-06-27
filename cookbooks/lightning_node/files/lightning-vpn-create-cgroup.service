@@ -1,0 +1,12 @@
+[Unit]
+Description=create cgroup for lightning-vpn (split tunnel VPN)
+StartLimitInterval=200
+StartLimitBurst=5
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/bash /opt/lightning-vpn/create-split-tunnel-cgroup.sh
+
+[Install]
+WantedBy=multi-user.target

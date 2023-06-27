@@ -1,0 +1,9 @@
+[Unit]
+Description=assign processes to cgroup for lightning-vpn (split tunnel VPN)
+
+[Service]
+Type=oneshot
+ExecStart=/bin/bash /opt/lightning-vpn/add-processes-split-tunnel.sh
+
+[Install]
+WantedBy=multi-user.target
