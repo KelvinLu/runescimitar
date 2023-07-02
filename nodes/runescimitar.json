@@ -46,6 +46,13 @@
     "gpio_fan": {
       "gpio_pin":               14,
       "temp_millicelsius":      45000
+    },
+
+    "ups_shutoff": {
+      "driver":                 "usbhid-ups",
+      "usb_vendor_name":        "Tripp Lite",
+      "usb_vendor_id":          "09ae",
+      "usb_product_id":         "3024"
     }
   },
 
@@ -262,6 +269,8 @@
   "run_list": [
     "recipe[rpi4_server::cmdline]",
     "recipe[rpi4_server::dtoverlay]",
+
+    "recipe[rpi4_server::ups_shutoff]",
 
     "recipe[hostname::default]",
 
