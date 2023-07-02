@@ -1,6 +1,7 @@
 # runescimitar
 
-`runescimitar` is a node based on the Raspberry Pi 4, running Ubuntu Server.
+`runescimitar` is a node based on the Raspberry Pi 4, running Ubuntu Server
+22.04.
 
 Its purpose is to be a portable Bitcoin full node, with many personal features.
 
@@ -62,27 +63,19 @@ Movement and control of funds should incorporate the usage of PSBTs.
 4. Perform any necessary, basic setup.
     - e.g.; creating or modifying user accounts, configuring `sshd` setup ...
 5. Update packages; `apt update`, `apt upgrade`.
-6. Install Ruby (via `ruby-install`).
-    - The version provided through Aptitude may be extremely outdated.
-    - Install Make; `apt install make`.
-    - Install `ruby-install` by following the installation steps at
-      `https://github.com/postmodern/ruby-install`.
-    - Install Ruby; `ruby-install --update ruby`.
-    - Install `chruby` by following the installation steps at
-      `https://github.com/postmodern/chruby`.
-7. Install Chef; `apt install chef chef-bin`.
-    - The installation will prompt for the Chef server URL, which may be left
-      empty.
+6. Install Ruby (`apt install ruby`).
+7. Install Chef (via the community distribution; "Cinc").
+    - See `http://downloads.cinc.sh/files/stable/cinc`.
+    - Install via `dpkg --install <.deb package file>`.
 8. Bootstrap configuration.
     1. Clone this repository.
     2. Vend cookbooks managed by Berkshelf.
-        - Berkshelf should utilize the built Ruby, use `chruby` to switch to it.
         - `gem install --user-install berkshelf --no-document`
         - `berks vendor --berksfile ./nodes/runescimitar.berksfile ./berkshelf/`
-9. Run `chef-solo`.
+9. Run `cinc-solo`.
     - Chef should utilize the system Ruby, use `chruby` to switch to it.
-    - `chef-solo --config ./solo.rb --json-attributes ./nodes/runescimitar.json --node-name runescimitar`.
-    - `chef-solo --config ./solo.rb --json-attributes ./nodes/runescimitar.json --node-name runescimitar --override-runlist "${run_list:?}"`.
+    - `cinc-solo --config ./solo.rb --json-attributes ./nodes/runescimitar.json --node-name runescimitar`.
+    - `cinc-solo --config ./solo.rb --json-attributes ./nodes/runescimitar.json --node-name runescimitar --override-runlist "${run_list:?}"`.
 
 ## Idiosyncrasies
 

@@ -3,7 +3,7 @@
 # Recipe:: dtoverlay
 #
 
-USERCFG_TXT                 = '/boot/firmware/usercfg.txt'
+CONFIG_TXT                  = '/boot/firmware/config.txt'
 
 DTOVERLAY_DISABLE_BLUETOOTH = 'dtoverlay=disable-bt'
 DTOVERLAY_USB_HOST          = 'dtoverlay=dwc2,dr_mode=host'
@@ -15,9 +15,9 @@ PATTERN_GPIO_FAN            = /^#{Regexp.escape('dtoverlay=gpio-fan')}/
 
 gpio_fan_params = node['rpi4_server']&.[]('gpio_fan')
 
-ruby_block "Set device tree overlays in #{USERCFG_TXT}" do
+ruby_block "Set device tree overlays in #{CONFIG_TXT}" do
   block do
-    file = Chef::Util::FileEdit.new(USERCFG_TXT)
+    file = Chef::Util::FileEdit.new(CONFIG_TXT)
 
     file.insert_line_if_no_match(PATTERN_DISABLE_BLUETOOTH, DTOVERLAY_DISABLE_BLUETOOTH)
     file.insert_line_if_no_match(PATTERN_USB_HOST, DTOVERLAY_USB_HOST)
