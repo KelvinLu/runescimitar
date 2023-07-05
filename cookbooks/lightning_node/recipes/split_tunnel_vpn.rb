@@ -7,6 +7,7 @@ params = node['lightning_node']&.[]('split_tunnel_vpn')
 
 include_recipe 'lightning_node::lnd'
 include_recipe 'rpi4_server::vpn'
+include_recipe 'rpi4_server::ufw'
 
 unless params.nil?
   node.default['lightning_node']['lnd']['cgroups'].append('net_cls:lightning_vpn')
@@ -110,5 +111,22 @@ unless params.nil?
     to '/etc/lightning-vpn/.external-host.txt'
 
     notifies :create, 'template[/var/lnd/.lnd/lnd.conf]', :delayed
+  end
+
+  execute "ensure interface device #{instance_name} exists" do
+    command [*%w[ip link show], instance_name]
+  end
+
+  execute 'ufw allow lightning vpn connection' do
+    command lazy {
+      [*%w[ufw allow in on], instance_name, *%w[to any port 9735 proto tcp comment], 'Allow Lightning VPN split tunnel']
+    }
+
+    not_if do
+      `ufw status verbose | grep -q '9735/tcp on #{instance_name}.*ALLOW IN'`
+      $?.success?
+    end
+
+    notifies :run, 'execute[ufw reload]', :delayed
   end
 end
