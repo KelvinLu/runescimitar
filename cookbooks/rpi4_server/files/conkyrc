@@ -9,7 +9,7 @@ override_utf8_locale no
 
 TEXT
 [
-{"full_text": " ⌘ ${if_match "${gw_iface}" != "multiple"}${if_match "${gw_iface}" != "none"}${exec ip addr | awk '/state UP/ {print $2; exit}' | tr -d ':' | tee /dev/shm/bmon-meter/interface} ${exec ~/.bmon-meter/bmon-meter print-output || echo '...'} (${exec hostname -I | head -n1 | tr -d ' '})${endif}${endif}${if_match "${gw_iface}" == "multiple"}multiple network interfaces${endif}${if_match "${gw_iface}" == "none"}no network interface${endif} ", "color":"\#00DBC5"},
+{"full_text": " ⌘ ${if_match "${gw_iface}" != "multiple"}${if_match "${gw_iface}" != "none"}${exec ip addr | awk '/state UP/ {print $2; exit}' | tr -d ':' | tee /dev/shm/bmon-meter/interface} ${exec ~/.bmon-meter/bmon-meter print-output || echo '...'} (${exec hostname -I | xargs | sed 's/ /, /g'})${endif}${endif}${if_match "${gw_iface}" == "multiple"}multiple network interfaces${endif}${if_match "${gw_iface}" == "none"}no network interface${endif} ", "color":"\#00DBC5"},
 {"full_text": " ◕ ↑ ${diskio_read}/s ↓ ${diskio_write}/s ", "color":"\#409090"},
 {"full_text": " ▩ ${cpu}% ♨ ${acpitemp}°C ","color": "\#FF5F3B"},
 {"full_text": " ▤ ${mem}/${memmax} ", "color":"\#20BD32"},
