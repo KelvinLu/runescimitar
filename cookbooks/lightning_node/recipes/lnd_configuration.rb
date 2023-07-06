@@ -3,7 +3,9 @@
 # Recipe:: lnd_configuration
 #
 
-node.default['lightning_node']['lnd']['cgroups'] = []
+split_tunnel_vpn_params = node['lightning_node']&.[]('split_tunnel_vpn')
+
+node.default['lightning_node']['lnd']['cgroups'] = [*(split_tunnel_vpn_params.nil? ? nil : 'net_cls:lightning_vpn')]
 node.default['lightning_node']['lnd']['hybrid_mode'] = false
 
 ruby_block 'check node alias file' do
