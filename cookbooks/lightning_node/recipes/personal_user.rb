@@ -16,6 +16,13 @@ group 'lnd' do
   action :modify
 end
 
+group 'lightning-terminal' do
+  append true
+  members [username]
+
+  action :modify
+end
+
 link File.join(Dir.home(username), '.lnd') do
   to '/var/lnd/.lnd'
 end
@@ -137,6 +144,16 @@ file File.join(Dir.home(username), 'unlock-lnd') do
   content <<~BASH
     #!/bin/bash
     lncli unlock -stdin
+  BASH
+end
+
+file File.join(Dir.home(username), 'lit-cli') do
+  group lazy { Etc.getpwnam(username).gid }
+  mode '0750'
+
+  content <<~BASH
+    #!/bin/bash
+    litcli --rpcserver=localhost:8443 --tlscertpath=/var/lightning-terminal/.lit/tls.cert --macaroonpath=/var/lightning-terminal/macaroon/lit.macaroon "$@"
   BASH
 end
 

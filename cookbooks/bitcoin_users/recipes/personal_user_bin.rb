@@ -60,6 +60,7 @@ end
   lnd: '/usr/local/bin/lnd',
   lncli: '/usr/local/bin/lncli',
 
+  litcli: '/usr/local/bin/litcli',
   loop: '/usr/local/bin/loop',
   pool: '/usr/local/bin/pool',
   frcli: '/usr/local/bin/frcli',
