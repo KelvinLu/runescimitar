@@ -68,7 +68,7 @@ end
   'charge-lnd': '/usr/local/bin/charge-lnd',
   'rebalance-lnd': '/usr/local/bin/rebalance-lnd',
 
-  lntop: '/usr/local/bin/lntop',
+  lntop: '/opt/lntop/bin/lntop',
 }.each do |symlink, path|
   link File.join(home_bin_dir, symlink.to_s) do
     to path

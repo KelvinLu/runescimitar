@@ -129,3 +129,36 @@ execute 'install lntop' do
 
   notifies :run, 'execute[extract lntop archive]', :before
 end
+
+directory '/opt/lntop' do
+  mode '0755'
+end
+
+directory '/opt/lntop/bin' do
+  mode '0755'
+end
+
+file '/opt/lntop/lntop-wrapper.c' do
+  content <<~PROGRAM
+    #include <unistd.h>
+
+    int main(int argc, char** argv) {
+      char *environment[] = {
+        "TERM=rxvt-unicode-256color",
+        "PATH=/usr/bin",
+        0
+      };
+
+      execve("/usr/local/bin/lntop", argv, environment);
+    }
+  PROGRAM
+
+  mode '0644'
+end
+
+execute 'compile lntop wrapper' do
+  command %w[gcc lntop-wrapper.c -o bin/lntop]
+  cwd '/opt/lntop'
+
+  creates '/opt/lntop/bin/lntop'
+end
