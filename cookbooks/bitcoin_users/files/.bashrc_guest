@@ -9,6 +9,8 @@ umask 0077
 alias vim='rvim'
 alias view='rview'
 
+alias clear='printf "\033c"'
+
 unset -f command_not_found_handle
 
 export PS1="\[${COLOR_LIGHT_GREEN}\]""\$([[ -f .workspace_ps1 ]] && (. .workspace_ps1) || true)""\[${COLOR_NC}\]""$PS1"
