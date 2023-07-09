@@ -1,0 +1,12 @@
+<%= @log_file %>
+{
+        rotate 14
+        daily
+        create 0640 <%= @user %> <%= @user %>
+        missingok
+        notifempty
+        compress
+        delaycompress
+        sharedscripts
+        su <%= @user %> <%= @user %>
+}

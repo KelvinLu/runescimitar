@@ -1,0 +1,22 @@
+[Unit]
+Description=charge-lnd (%I)
+
+[Service]
+Type=oneshot
+
+ExecStartPre=charge-lnd \
+  --macaroon /var/charge-lnd/macaroon/charge-lnd.macaroon \
+  --electrum-server localhost:50001 \
+  --check \
+  --config %I
+
+ExecStartPre=date
+
+ExecStart=charge-lnd \
+  --macaroon /var/charge-lnd/macaroon/charge-lnd.macaroon \
+  --electrum-server localhost:50001 \
+  --dry-run \
+  --config %I
+
+StandardOutput=append:<%= @log_file %>
+StandardError=append:<%= @log_file %>

@@ -4,6 +4,12 @@ export PATH
 HOME=~
 export HOME
 
+DBUS_SESSION_BUS_ADDRESS=/run/user/${UID}/bus
+export DBUS_SESSION_BUS_ADDRESS
+
+XDG_RUNTIME_DIR=/run/user/${UID}
+export XDG_RUNTIME_DIR
+
 umask 0077
 
 alias vim='rvim'

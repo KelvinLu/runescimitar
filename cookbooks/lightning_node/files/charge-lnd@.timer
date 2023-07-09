@@ -1,0 +1,11 @@
+[Unit]
+Description=charge-lnd timer (%I)
+
+[Timer]
+OnActiveSec=3600
+OnUnitActiveSec=3600
+RandomizedDelaySec=1200
+Persistent=true
+
+[Install]
+WantedBy=timers.target

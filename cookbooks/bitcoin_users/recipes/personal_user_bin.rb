@@ -17,6 +17,7 @@ end
 {
   sudo: '/usr/bin/sudo',
   systemctl: '/usr/bin/systemctl',
+  'systemd-escape': '/usr/bin/systemd-escape',
 
   ls: '/usr/bin/ls',
   mv: '/usr/bin/mv',
