@@ -15,7 +15,6 @@ ExecStartPre=date
 ExecStart=charge-lnd \
   --macaroon /var/charge-lnd/macaroon/charge-lnd.macaroon \
   --electrum-server localhost:50001 \
-  --dry-run \
   --config %I
 
 StandardOutput=append:<%= @log_file %>
