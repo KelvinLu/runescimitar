@@ -321,6 +321,7 @@
 
     "recipe[applications::vim]",
     "recipe[applications::feh]",
+    "recipe[applications::feh_viewer]",
     "recipe[applications::opentimestamps]",
 
     "recipe[bitcoin_node::bitcoin_core]",

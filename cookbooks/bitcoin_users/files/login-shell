@@ -5,5 +5,8 @@ cat ~/.shadow-wizard-money-gang.txt
 if [[ "$(tty)" == /dev/tty* ]]; then
   XAUTHORITY="/tmp/.Xauthority-$$" exec startx
 else
-  exec env -i /bin/bash --restricted
+  exec env -i \
+    ${TERM:+"TERM=${TERM}"} \
+    ${DISPLAY:+"DISPLAY=${DISPLAY}"} \
+    /bin/bash --restricted
 fi

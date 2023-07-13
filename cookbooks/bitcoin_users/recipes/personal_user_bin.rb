@@ -41,6 +41,8 @@ end
   rvim: '/usr/bin/rvim',
   rview: '/usr/bin/rview',
 
+  'feh-viewer': '/opt/feh-viewer/bin/feh-viewer',
+
   grep: '/usr/bin/grep',
   wc: '/usr/bin/wc',
   sort: '/usr/bin/sort',
