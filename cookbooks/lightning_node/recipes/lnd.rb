@@ -80,3 +80,4 @@ end
 
 include_recipe 'lightning_node::lnd_installation'
 include_recipe 'lightning_node::lnd_configuration'
+include_recipe 'lightning_node::lnd_tor_hidden_service'
