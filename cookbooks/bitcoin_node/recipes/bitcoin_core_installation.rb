@@ -25,7 +25,7 @@ builder_keys_uri = URI.join(
   File.join('repositories', "#{github_repo_id}", 'contents', 'builder-keys')
 )
 
-include_recipe 'rpi4_server::opentimestamps'
+include_recipe 'applications::opentimestamps'
 
 directory '/var/opt/bitcoin' do
   mode '0755'

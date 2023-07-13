@@ -1,5 +1,5 @@
 #
-# Cookbook:: rpi4_server
+# Cookbook:: applications
 # Recipe:: vim
 #
 

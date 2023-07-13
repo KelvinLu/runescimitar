@@ -304,8 +304,6 @@
     "recipe[rpi4_server::i3wm]",
     "recipe[rpi4_server::x11_config]",
 
-    "recipe[rpi4_server::vim]",
-
     "recipe[rpi4_server::disable_services]",
     "recipe[rpi4_server::rm_snapd]",
     "recipe[rpi4_server::rm_cloudinit]",
@@ -321,7 +319,9 @@
     "recipe[rpi4_server::sshd_tor_hidden_service]",
     "recipe[rpi4_server::vpn]",
 
-    "recipe[rpi4_server::opentimestamps]",
+    "recipe[applications::vim]",
+    "recipe[applications::feh]",
+    "recipe[applications::opentimestamps]",
 
     "recipe[bitcoin_node::bitcoin_core]",
     "recipe[bitcoin_node::btc_rpc_proxy]",

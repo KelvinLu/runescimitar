@@ -1,9 +1,7 @@
 #
-# Cookbook:: rpi4_server
+# Cookbook:: applications
 # Recipe:: opentimestamps
 #
-
-operator_user = node['rpi4_server'].fetch('operator_user')
 
 include_recipe 'applications::python'
 
