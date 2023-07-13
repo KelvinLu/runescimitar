@@ -230,3 +230,33 @@ cookbook_file File.join(Dir.home(username), '.lntop', 'config.toml') do
 
   action :create_if_missing
 end
+
+file File.join(Dir.home(username), 'lndconnect-admin') do
+  group lazy { Etc.getpwnam(username).gid }
+  mode '0750'
+
+  content <<~BASH
+    #!/bin/bash
+    lndconnect --adminmacaroonpath /var/lnd/macaroon/admin.macaroon "$@"
+  BASH
+end
+
+file File.join(Dir.home(username), 'lndconnect-readonly') do
+  group lazy { Etc.getpwnam(username).gid }
+  mode '0750'
+
+  content <<~BASH
+    #!/bin/bash
+    lndconnect --readonlymacaroonpath /var/lnd/macaroon/readonly.macaroon --readonly "$@"
+  BASH
+end
+
+file File.join(Dir.home(username), 'lndconnect-invoice') do
+  group lazy { Etc.getpwnam(username).gid }
+  mode '0750'
+
+  content <<~BASH
+    #!/bin/bash
+    lndconnect --invoicemacaroonpath /var/lnd/macaroon/invoice.macaroon --invoice "$@"
+  BASH
+end

@@ -189,6 +189,14 @@
       }
     },
 
+    "lndconnect": {
+      "version":                "0.2.0",
+
+      "sha256_checksums": {
+        "archive_targz":        "d9abcf75d2e284cde122a6df93bcbff0372c692b994cf02056136d854a7455a5"
+      }
+    },
+
     "service_require": {
       "lnd.service":            ["var.mount", "storage-data.mount"]
     }
@@ -345,6 +353,7 @@
     "recipe[lightning_node::lntop]",
 
     "recipe[lightning_node::personal_user]",
-    "recipe[lightning_node::charge_lnd_systemd]"
+    "recipe[lightning_node::charge_lnd_systemd]",
+    "recipe[lightning_node::lndconnect]"
   ]
 }

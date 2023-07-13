@@ -70,6 +70,8 @@ end
   'rebalance-lnd': '/usr/local/bin/rebalance-lnd',
 
   lntop: '/opt/lntop/bin/lntop',
+
+  lndconnect: '/opt/lndconnect/bin/lndconnect',
 }.each do |symlink, path|
   link File.join(home_bin_dir, symlink.to_s) do
     to path
