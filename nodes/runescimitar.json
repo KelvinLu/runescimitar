@@ -319,6 +319,7 @@
     "recipe[rpi4_server::sshd_tor_hidden_service]",
     "recipe[rpi4_server::vpn]",
 
+    "recipe[applications::urxvt]",
     "recipe[applications::vim]",
     "recipe[applications::feh]",
     "recipe[applications::feh_viewer]",
