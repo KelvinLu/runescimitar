@@ -7,6 +7,7 @@ root_location = node['bitcoin_users'].fetch('root_location', '/home')
 params        = node['bitcoin_users'].fetch('personal_user')
 username      = params.fetch('name')
 
+user_home_dir = File.join(root_location, username, 'home/')
 workspace_dir = File.join(root_location, username, 'home/', username, 'workspace/')
 encrypted_dir = File.join(root_location, username, 'home/', username, '.workspace/')
 
@@ -42,7 +43,7 @@ ruby_block 'Add user mount for gocryptfs workspace' do
   end
 end
 
-file File.join(Dir.home(username), 'setup-gocryptfs-workspace') do
+file File.join(user_home_dir, username, 'setup-gocryptfs-workspace') do
   group lazy { Etc.getpwnam(username).gid }
   mode '0750'
 
