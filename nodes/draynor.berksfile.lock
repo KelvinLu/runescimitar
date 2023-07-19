@@ -1,0 +1,9 @@
+DEPENDENCIES
+  hostname (~> 0.4.2)
+  ulimit (~> 1.1.1)
+
+GRAPH
+  hostname (0.4.2)
+    hostsfile (>= 0.0.0)
+  hostsfile (3.0.1)
+  ulimit (1.1.1)
