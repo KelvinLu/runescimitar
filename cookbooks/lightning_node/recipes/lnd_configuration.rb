@@ -17,6 +17,18 @@ ruby_block 'check node alias file' do
   end
 end
 
+ruby_block 'check node color file' do
+  block do
+    unless File.exist?('/var/lnd/.node-color.txt') && !File.zero?('/var/lnd/.node-color.txt')
+      raise 'A node color must be set in a file located at ~lnd/.node-color.txt'
+    end
+
+    node_color = File.read('/var/lnd/.node-color.txt').strip
+
+    raise 'Invalid color code' unless node_color.match?(/^#[0-9A-Fa-f]{6}$/)
+  end
+end
+
 ruby_block 'check split tunnel VPN configuration for hybrid mode' do
   block do
     if node['lightning_node']['lnd']['hybrid_mode']
@@ -32,6 +44,7 @@ template '/var/lnd/.lnd/lnd.conf' do
 
   variables lazy {
     node_alias = File.read('/var/lnd/.node-alias.txt').strip
+    node_color = File.read('/var/lnd/.node-color.txt').strip
 
     external_host =
       if File.exists?('/var/lnd/.external-host.txt')
@@ -44,6 +57,7 @@ template '/var/lnd/.lnd/lnd.conf' do
 
     {
       node_alias: node_alias,
+      node_color: node_color,
       external_host: external_host,
       hybrid_mode: hybrid_mode,
       neutrino_mode: !neutrino_mode_params.nil?,
