@@ -50,6 +50,80 @@
     }
   },
 
+  "lightning_node": {
+    "lnd_datadir_location":     "/storage/data",
+
+    "lnd": {
+      "neutrino_mode": {
+        "feeurl":               "https://nodes.lightning.computer/fees/v1/btc-fee-estimates.json",
+        "peers": [
+                                "btcd-mainnet.lightning.computer",
+                                "mainnet1-btcd.zaphq.io",
+                                "mainnet2-btcd.zaphq.io",
+                                "mainnet3-btcd.zaphq.io",
+                                "mainnet4-btcd.zaphq.io"
+        ]
+      },
+
+      "version":                "0.16.0-beta",
+
+      "sha256_checksums": {
+        "archive_targz":        "63d6a37d77942735ef58a59208ca1bb4d6a5ddfe554c2664ec3f5020ffab2414",
+        "manifest_txt":         "549be9bd8825d75e31692a7baa04afb866b3bf2c2f6a7d42117b4cdbaa8eb486",
+        "manifest_sig":         "a8e0aa21be7857918ed6e4ba9237fe597bef7b255b7fc58715befa156568f29e",
+        "manifest_sig_ots":     "7d6efcc1a5f67177d714eaa4d916fe68b1e202630ebc9dfe26e41bc64ee37f9e",
+
+        "roasbeef_gpg_key":     "6b196ef3d63804d1d3665f9c3184763e86858529ac49f94c964a5980e85738d3"
+      }
+    },
+
+    "lightning_terminal": {
+      "version":                "0.10.1-alpha",
+
+      "sha256_checksums": {
+        "archive_targz":        "86643e24c1e76762d0f7963afb44192fda24ad521c9e6f64dbdbe3d11101604a",
+        "manifest_txt":         "91939aef4298c8e77f8ddec29aad86ac896e28d9ad9a7150532e4f79dd1d1dee",
+        "manifest_sig":         "cbacec533b3683783ffc1613b915934e7b4bc27cfc9792b26d921ace2e51a6c5",
+        "manifest_sig_ots":     "dc5e7a30d9b91c29fd91a831fcc377166f383eea20d1e0f7ca14828856594bc5"
+      }
+    },
+
+    "ride_the_lightning": {
+      "version":                "0.14.0",
+
+      "sha256_checksums": {
+        "archive_targz":        "38eda5884521000f4a46d77254b32c40a710eff97583136dbf0c83d4bbf40ad9",
+        "archive_targz_sig":    "29493ac344c734e9ad48bd535e165e0cceff7c01a1b825ad24c1611e7cd1d85b",
+
+        "saubyk_gpg_key":       "3d89773a42801624e16f630419d6d8dc866f21741af7b50a9f530d127d6db932"
+      }
+    },
+
+    "lntop": {
+      "version":                "0.4.0",
+
+      "sha256_checksums": {
+        "archive_targz":        "720e60ec0aa92db12e03ea8e3e8fc2fcb46248654a395b6aceb8553a5251e92f",
+        "checksums_txt":        "b42882987fdb681d35ae897e818bf3fe8cb4e406e71cab5c111d6cefcd5817f2",
+        "checksums_txt_sig":    "38850a1f3a38845debe0950c54387ab94d4ad5dff543eace89fef7829f9296d8",
+
+        "edouardparis_gpg_key": "fdbf14f5efd896beffe1b4a801d686905f92f14e0893867d70164ead6ea470b8"
+      }
+    },
+
+    "lndconnect": {
+      "version":                "0.2.0",
+
+      "sha256_checksums": {
+        "archive_targz":        "d9abcf75d2e284cde122a6df93bcbff0372c692b994cf02056136d854a7455a5"
+      }
+    },
+
+    "service_require": {
+      "lnd.service":            ["var.mount", "storage-data.mount"]
+    }
+  },
+
   "persona": {
     "root_location":            "/storage/data",
 
@@ -57,6 +131,16 @@
       "name":                   "cleric",
 
       "spellbook": [
+        {
+          "bindsym":            "t",
+          "label":              "Lightning Terminal",
+          "command":            "kiosk-firefox https://localhost:8443"
+        },
+        {
+          "bindsym":            "r",
+          "label":              "Ride The Lightning",
+          "command":            "kiosk-firefox https://localhost:4001"
+        }
       ],
 
       "removable_media": {
@@ -123,7 +207,24 @@
     "recipe[applications::vim]",
     "recipe[applications::feh]",
     "recipe[applications::feh_viewer]",
+    "recipe[applications::opentimestamps]",
+    "recipe[applications::firefox]",
 
-    "recipe[persona::personal_user]"
+    "recipe[lightning_node::lnd]",
+
+    "recipe[lightning_node::lntop]",
+    "recipe[lightning_node::lndconnect]",
+
+    "recipe[lightning_node::lightning_terminal]",
+    "recipe[lightning_node::ride_the_lightning]",
+
+    "recipe[persona::personal_user]",
+
+    "recipe[persona::firefox]",
+
+    "recipe[lightning_node::personal_user_lnd]",
+    "recipe[lightning_node::personal_user_lntop]",
+    "recipe[lightning_node::personal_user_lndconnect]",
+    "recipe[lightning_node::personal_user_litd]"
   ]
 }
