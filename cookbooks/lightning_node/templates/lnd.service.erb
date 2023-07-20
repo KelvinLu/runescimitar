@@ -1,7 +1,11 @@
 [Unit]
 Description=LND Lightning Network Daemon
+<% unless @neutrino_mode %>
 Wants=bitcoind.service
 After=bitcoind.service <%= @after_units&.join(' ') %>
+<% else %>
+After=network.target <%= @after_units&.join(' ') %>
+<% end %>
 
 [Service]
 # Service execution

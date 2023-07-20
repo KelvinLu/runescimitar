@@ -50,6 +50,11 @@ gc-canceled-invoices-on-the-fly=true
 ignore-historical-gossip-filters=1
 stagger-initial-reconnect=true
 
+<% if @neutrino_mode %>
+# Fee estimation
+feeurl=<%= @neutrino_mode_params.fetch('feeurl') %>
+<% end %>
+
 [signrpc]
 signrpc.signermacaroonpath=/var/lnd/macaroon/signer.macaroon
 
@@ -73,10 +78,21 @@ db.bolt.auto-compact-min-age=168h
 [Bitcoin]
 bitcoin.active=true
 bitcoin.mainnet=true
+<% unless @neutrino_mode %>
 bitcoin.node=bitcoind
+<% else %>
+bitcoin.node=neutrino
+<% end %>
 
+<% unless @neutrino_mode %>
 [Bitcoind]
 bitcoind.dir=/var/bitcoin/datadir
+<% else %>
+[neutrino]
+<% @neutrino_mode_params.fetch('peers').each do |peer| %>
+neutrino.addpeer=<%= peer %>
+<% end %>
+<% end %>
 
 [tor]
 tor.active=true

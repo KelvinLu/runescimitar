@@ -4,6 +4,7 @@
 #
 
 alternate_datadir_location = node['lightning_node']&.[]('lnd_datadir_location')
+neutrino_mode_params = node['lightning_node']&.[]('lnd')&.[]('neutrino_mode')
 
 datadir =
   if alternate_datadir_location.nil?
@@ -12,7 +13,10 @@ datadir =
     File.join(alternate_datadir_location, 'lnd', 'datadir')
   end
 
-include_recipe 'bitcoin_node::bitcoin_core'
+if neutrino_mode_params.nil?
+  include_recipe 'bitcoin_node::bitcoin_core'
+end
+
 include_recipe 'rpi4_server::tor'
 
 user 'lnd' do
@@ -23,11 +27,13 @@ user 'lnd' do
   manage_home false
 end
 
-group 'bitcoin' do
-  append true
-  members %w[lnd]
+if neutrino_mode_params.nil?
+  group 'bitcoin' do
+    append true
+    members %w[lnd]
 
-  action :modify
+    action :modify
+  end
 end
 
 group 'debian-tor' do

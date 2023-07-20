@@ -4,6 +4,7 @@
 #
 
 split_tunnel_vpn_params = node['lightning_node']&.[]('split_tunnel_vpn')
+neutrino_mode_params = node['lightning_node']&.[]('lnd')&.[]('neutrino_mode')
 
 node.default['lightning_node']['lnd']['cgroups'] = [*(split_tunnel_vpn_params.nil? ? nil : 'net_cls:lightning_vpn')]
 node.default['lightning_node']['lnd']['hybrid_mode'] = false
@@ -45,6 +46,8 @@ template '/var/lnd/.lnd/lnd.conf' do
       node_alias: node_alias,
       external_host: external_host,
       hybrid_mode: hybrid_mode,
+      neutrino_mode: !neutrino_mode_params.nil?,
+      neutrino_mode_params: neutrino_mode_params,
     }
   }
 
@@ -58,6 +61,7 @@ template '/etc/systemd/system/lnd.service' do
 
   variables lazy {
     {
+      neutrino_mode: !neutrino_mode_params.nil?,
       after_units: node['lightning_node'].[]('service_require')&.[]('lnd.service'),
       lnd_command: (
         if node['lightning_node']['lnd']['cgroups'].empty?

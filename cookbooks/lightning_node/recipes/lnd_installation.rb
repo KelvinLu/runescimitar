@@ -116,7 +116,7 @@ execute 'verify opentimestamps (lnd)' do
   cwd var_opt_directory
 
   user operator_user
-  group 'bitcoin'
+  group 'bitcoin' if params['neutrino_mode'].nil?
 
   returns lazy {
     [0, *(local_bitcoind_listening? ? nil : 1)]
