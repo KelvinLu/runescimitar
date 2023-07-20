@@ -13,6 +13,7 @@ OTS_FILENAME = Proc.new { |version| "manifest-v#{version}.sig.ots" }
 GPG_KEY_VTIGERSTROM_FINGERPRINT = '187F6ADD93AE3B0CF335AA6AB984570980684DCC'
 
 params                      = node['lightning_node'].fetch('lightning_terminal')
+neutrino_mode               = !(node['lightning_node'].fetch('lnd')['neutrino_mode'].nil?)
 operator_user               = node['rpi4_server'].fetch('operator_user')
 
 lightning_terminal_version  = params.fetch('version')
@@ -108,7 +109,7 @@ execute 'verify opentimestamps (lightning terminal)' do
   cwd var_opt_directory
 
   user operator_user
-  group 'bitcoin'
+  group 'bitcoin' unless neutrino_mode
 
   returns lazy {
     [0, *(local_bitcoind_listening? ? nil : 1)]

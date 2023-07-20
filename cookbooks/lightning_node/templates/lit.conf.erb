@@ -34,10 +34,12 @@ pool.macaroonpath=/var/lightning-terminal/macaroon/pool.macaroon
 #     Faraday    #
 ##################
 
-# If connect_bitcoin is set to 1, Faraday can connect to a bitcoin node (with --txindex set) to provide node accounting services
-faraday.connect_bitcoin=1
 # The minimum amount of time that a channel must be monitored for before recommending termination
 faraday.min_monitored=72h
+
+<% unless @neutrino_mode %>
+# If connect_bitcoin is set to 1, Faraday can connect to a bitcoin node (with --txindex set) to provide node accounting services
+faraday.connect_bitcoin=1
 
 ###################
 # Faraday-Bitcoin #
@@ -46,3 +48,6 @@ faraday.min_monitored=72h
 faraday.bitcoin.host=127.0.0.1:8331
 faraday.bitcoin.user=faraday
 faraday.bitcoin.password=<%= @faraday_bitcoind_password %>
+<% else %>
+faraday.connect_bitcoin=0
+<% end %>

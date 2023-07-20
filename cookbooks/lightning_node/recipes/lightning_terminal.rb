@@ -4,6 +4,7 @@
 #
 
 alternate_datadir_location = node['lightning_node']&.[]('lnd_datadir_location')
+neutrino_mode              = !(node['lightning_node'].fetch('lnd')['neutrino_mode'].nil?)
 
 include_recipe 'lightning_node::lnd'
 
@@ -15,11 +16,13 @@ user 'lightning-terminal' do
   manage_home false
 end
 
-group 'bitcoin' do
-  append true
-  members %w[lightning-terminal]
+unless neutrino_mode
+  group 'bitcoin' do
+    append true
+    members %w[lightning-terminal]
 
-  action :modify
+    action :modify
+  end
 end
 
 group 'lnd' do

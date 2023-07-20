@@ -3,7 +3,9 @@
 # Recipe:: lightning_terminal_configuration
 #
 
-include_recipe 'bitcoin_node::btc_rpc_proxy'
+neutrino_mode = !(node['lightning_node'].fetch('lnd')['neutrino_mode'].nil?)
+
+include_recipe 'bitcoin_node::btc_rpc_proxy' unless neutrino_mode
 include_recipe 'rpi4_server::ufw'
 
 ruby_block 'check uipassword file' do
@@ -22,32 +24,34 @@ ruby_block 'check uipassword file' do
   end
 end
 
-file '/var/lightning-terminal/.faraday/.bitcoind-password' do
-  content lazy { `gpg --gen-random --armor 1 32`.strip }
-  sensitive true
+unless neutrino_mode
+  file '/var/lightning-terminal/.faraday/.bitcoind-password' do
+    content lazy { `gpg --gen-random --armor 1 32`.strip }
+    sensitive true
 
-  user lazy { Etc.getpwnam('lightning-terminal').uid }
-  group lazy { Etc.getpwnam('lightning-terminal').gid }
-  mode '0600'
+    user lazy { Etc.getpwnam('lightning-terminal').uid }
+    group lazy { Etc.getpwnam('lightning-terminal').gid }
+    mode '0600'
 
-  action :create_if_missing
-end
+    action :create_if_missing
+  end
 
-template '/var/btc-rpc-proxy/conf.d/faraday.toml' do
-  source 'btc-rpc-proxy_faraday.toml.erb'
-  sensitive true
+  template '/var/btc-rpc-proxy/conf.d/faraday.toml' do
+    source 'btc-rpc-proxy_faraday.toml.erb'
+    sensitive true
 
-  variables lazy {
-    bitcoind_password = File.read('/var/lightning-terminal/.faraday/.bitcoind-password')
+    variables lazy {
+      bitcoind_password = File.read('/var/lightning-terminal/.faraday/.bitcoind-password')
 
-    { bitcoind_password: bitcoind_password }
-  }
+      { bitcoind_password: bitcoind_password }
+    }
 
-  group lazy { Etc.getpwnam('btc-rpc-proxy').gid }
+    group lazy { Etc.getpwnam('btc-rpc-proxy').gid }
 
-  mode '0640'
+    mode '0640'
 
-  notifies :restart, 'systemd_unit[btc-rpc-proxy.service]', :delayed
+    notifies :restart, 'systemd_unit[btc-rpc-proxy.service]', :delayed
+  end
 end
 
 template '/var/lightning-terminal/.lit/lit.conf' do
@@ -55,9 +59,12 @@ template '/var/lightning-terminal/.lit/lit.conf' do
   sensitive true
 
   variables lazy {
-    faraday_bitcoind_password = File.read('/var/lightning-terminal/.faraday/.bitcoind-password')
+    faraday_bitcoind_password = File.read('/var/lightning-terminal/.faraday/.bitcoind-password') unless neutrino_mode
 
-    { faraday_bitcoind_password: faraday_bitcoind_password }
+    {
+      faraday_bitcoind_password: faraday_bitcoind_password,
+      neutrino_mode: neutrino_mode
+    }
   }
 
   user lazy { Etc.getpwnam('lightning-terminal').uid }
