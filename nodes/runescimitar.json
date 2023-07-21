@@ -345,6 +345,9 @@
 
     "recipe[lightning_node::split_tunnel_vpn]",
 
+    "recipe[lightning_node::lntop]",
+    "recipe[lightning_node::lndconnect]",
+
     "recipe[lightning_node::lightning_terminal]",
     "recipe[lightning_node::ride_the_lightning]",
 
@@ -352,10 +355,12 @@
     "recipe[lightning_node::rebalance_lnd]",
     "recipe[lightning_node::circuit_breaker]",
 
-    "recipe[lightning_node::lntop]",
-
-    "recipe[lightning_node::personal_user]",
-    "recipe[lightning_node::charge_lnd_systemd]",
-    "recipe[lightning_node::lndconnect]"
+    "recipe[lightning_node::personal_user_lnd]",
+    "recipe[lightning_node::personal_user_lnd_scb]",
+    "recipe[lightning_node::personal_user_lntop]",
+    "recipe[lightning_node::personal_user_lndconnect]",
+    "recipe[lightning_node::personal_user_litd]",
+    "recipe[lightning_node::personal_user_charge_lnd]",
+    "recipe[lightning_node::personal_user_rebalance_lnd]"
   ]
 }

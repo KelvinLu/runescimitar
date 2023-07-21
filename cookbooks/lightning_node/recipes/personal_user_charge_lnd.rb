@@ -1,13 +1,20 @@
 #
 # Cookbook:: lightning_node
-# Recipe:: charge_lnd_systemd
+# Recipe:: personal_user_charge_lnd
 #
 
-params    = node['bitcoin_users'].fetch('personal_user')
-username  = params.fetch('name')
+params   = node['bitcoin_users'].fetch('personal_user')
+username = params.fetch('name')
 
-include_recipe 'lightning_node::charge_lnd'
-include_recipe 'lightning_node::personal_user'
+file File.join(Dir.home(username), 'run-charge-lnd') do
+  group lazy { Etc.getpwnam(username).gid }
+  mode '0750'
+
+  content <<~BASH
+    #!/bin/bash
+    charge-lnd --macaroon /var/charge-lnd/macaroon/charge-lnd.macaroon --electrum-server localhost:50001 "$@"
+  BASH
+end
 
 directory File.join(Dir.home(username), 'charge-lnd-logs') do
   user lazy { Etc.getpwnam(username).uid }
