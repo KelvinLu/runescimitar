@@ -18,6 +18,14 @@ directory '/var/opt/lndconnect' do
   mode '0755'
 end
 
+directory '/opt/lndconnect' do
+  mode '0755'
+end
+
+directory '/opt/lndconnect/bin' do
+  mode '0755'
+end
+
 remote_file File.join('/var/opt/lndconnect', ARCHIVE_FILENAME.call(lndconnect_version)) do
   source GITHUB_LNDCONNECT_RELEASES_URL.call(lndconnect_version, ARCHIVE_FILENAME)
 
@@ -54,7 +62,7 @@ execute 'install lndconnect' do
   command lazy {
     [
       'install', '-m', '0755', '-o', 'root', '-g', 'root',
-      '-t', '/usr/local/bin',
+      '-t', '/opt/lndconnect/bin',
       File.join('/var/opt/lndconnect', qualified_name, 'lndconnect')
     ]
   }
