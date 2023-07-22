@@ -202,7 +202,7 @@
     }
   },
 
-  "bitcoin_users": {
+  "persona": {
     "root_location":            "/storage/data",
 
     "personal_user": {
@@ -324,6 +324,7 @@
     "recipe[applications::feh]",
     "recipe[applications::feh_viewer]",
     "recipe[applications::opentimestamps]",
+    "recipe[applications::firefox]",
 
     "recipe[bitcoin_node::bitcoin_core]",
     "recipe[bitcoin_node::btc_rpc_proxy]",
@@ -333,12 +334,6 @@
 
     "recipe[bitcoin_node::libbitcoin_explorer]",
     "recipe[bitcoin_node::mempool]",
-
-    "recipe[bitcoin_users::personal_user]",
-    "recipe[bitcoin_users::guest_user]",
-
-    "recipe[bitcoin_users::user_wallet]",
-    "recipe[bitcoin_users::firefox]",
 
     "recipe[lightning_node::lnd]",
     "recipe[lightning_node::lnd_scb]",
@@ -354,6 +349,12 @@
     "recipe[lightning_node::charge_lnd]",
     "recipe[lightning_node::rebalance_lnd]",
     "recipe[lightning_node::circuit_breaker]",
+
+    "recipe[persona::personal_user]",
+    "recipe[persona::guest_user]",
+
+    "recipe[persona::user_wallet]",
+    "recipe[persona::firefox]",
 
     "recipe[lightning_node::personal_user_lnd]",
     "recipe[lightning_node::personal_user_lnd_scb]",

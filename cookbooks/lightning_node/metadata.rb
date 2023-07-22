@@ -5,5 +5,5 @@ chef_version '>= 15.0'
 
 depends 'rpi4_server'
 depends 'bitcoin_node'
-depends 'bitcoin_users'
+depends 'persona'
 depends 'applications'

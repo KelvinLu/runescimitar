@@ -1,11 +1,11 @@
 #
-# Cookbook:: bitcoin_users
+# Cookbook:: persona
 # Recipe:: personal_user_mount
 #
 
-include_recipe 'bitcoin_users::personal_user_bin'
+include_recipe 'persona::personal_user_bin'
 
-params    = node['bitcoin_users'].fetch('personal_user')
+params    = node['persona'].fetch('personal_user')
 username  = params.fetch('name')
 
 removable_media = params.fetch('removable_media')

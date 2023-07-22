@@ -1,36 +1,12 @@
 #
-# Cookbook:: bitcoin_users
+# Cookbook:: persona
 # Recipe:: firefox
 #
 
-apt_repository 'mozillateam' do
-  uri 'ppa:mozillateam/ppa'
-end
-
-cookbook_file '/usr/local/bin/kiosk-firefox' do
-  source 'kiosk-firefox'
-
-  mode '0755'
-end
-
-file '/etc/apt/preferences.d/mozilla-firefox' do
-  content <<~CONFIG
-    Package: *
-    Pin: release o=LP-PPA-mozillateam
-    Pin-Priority: 1001
-  CONFIG
-
-  mode '0644'
-end
-
-apt_package 'firefox' do
-  action :install
-end
-
 [
-  node['bitcoin_users'].fetch('personal_user'),
-  node['bitcoin_users'].fetch('guest_user')
-].each do |params|
+  node['persona'].fetch('personal_user', nil),
+  node['persona'].fetch('guest_user', nil)
+].compact.each do |params|
   username = params.fetch('name')
 
   directory 'firefox ~/.mozilla' do

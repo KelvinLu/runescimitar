@@ -1,5 +1,5 @@
 #
-# Cookbook:: bitcoin_users
+# Cookbook:: applications
 # Recipe:: feh_viewer
 #
 

@@ -1,12 +1,12 @@
 #
-# Cookbook:: bitcoin_users
+# Cookbook:: persona
 # Recipe:: guest_user_wallet
 #
 
 [
-  node['bitcoin_users'].fetch('personal_user'),
-  node['bitcoin_users'].fetch('guest_user')
-].each do |params|
+  node['persona'].fetch('personal_user', nil),
+  node['persona'].fetch('guest_user', nil)
+].compact.each do |params|
   username = params.fetch('name')
 
   directory File.join(Dir.home(username), '.sparrow') do

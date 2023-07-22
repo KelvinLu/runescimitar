@@ -1,10 +1,10 @@
 #
-# Cookbook:: bitcoin_users
+# Cookbook:: persona
 # Recipe:: guest_user
 #
 
-root_location = node['bitcoin_users'].fetch('root_location', '/home')
-params        = node['bitcoin_users'].fetch('guest_user')
+root_location = node['persona'].fetch('root_location', '/home')
+params        = node['persona'].fetch('guest_user')
 username      = params.fetch('name')
 
 outer_home_dir  = File.join(root_location, username)
@@ -135,5 +135,5 @@ cookbook_file File.join(user_home_dir, '.wizard-kaomoji') do
   mode '0644'
 end
 
-include_recipe 'bitcoin_users::guest_user_bin'
-include_recipe 'bitcoin_users::guest_user_workspace'
+include_recipe 'persona::guest_user_bin'
+include_recipe 'persona::guest_user_workspace'

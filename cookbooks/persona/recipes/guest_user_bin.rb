@@ -1,10 +1,10 @@
 #
-# Cookbook:: bitcoin_users
+# Cookbook:: persona
 # Recipe:: guest_user_bin
 #
 
-root_location = node['bitcoin_users'].fetch('root_location', '/home')
-params        = node['bitcoin_users'].fetch('guest_user')
+root_location = node['persona'].fetch('root_location', '/home')
+params        = node['persona'].fetch('guest_user')
 username      = params.fetch('name')
 
 home_bin_dir = File.join(root_location, username, 'home/', username, '.bin')

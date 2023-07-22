@@ -3,7 +3,7 @@
 # Recipe:: personal_user_litd
 #
 
-params   = node['bitcoin_users'].fetch('personal_user')
+params   = node['persona'].fetch('personal_user')
 username = params.fetch('name')
 
 group 'lightning-terminal' do

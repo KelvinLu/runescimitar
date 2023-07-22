@@ -3,7 +3,7 @@
 # Recipe:: personal_user_charge_lnd
 #
 
-params   = node['bitcoin_users'].fetch('personal_user')
+params   = node['persona'].fetch('personal_user')
 username = params.fetch('name')
 
 file File.join(Dir.home(username), 'run-charge-lnd') do

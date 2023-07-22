@@ -3,7 +3,7 @@
 # Recipe:: personal_user_lntop
 #
 
-params   = node['bitcoin_users'].fetch('personal_user')
+params   = node['persona'].fetch('personal_user')
 username = params.fetch('name')
 
 directory File.join(Dir.home(username), '.lntop') do

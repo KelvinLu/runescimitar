@@ -3,7 +3,7 @@
 # Recipe:: personal_user_lnd_scb
 #
 
-params   = node['bitcoin_users'].fetch('personal_user')
+params   = node['persona'].fetch('personal_user')
 username = params.fetch('name')
 
 sudo '57-lnd-scb-personal-user' do
