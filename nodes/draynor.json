@@ -41,6 +41,13 @@
     "gpio_fan": {
       "gpio_pin":               14,
       "temp_millicelsius":      45000
+    },
+
+    "vpn_client_nat_pmp": {
+      "draynor0": {
+        "gateway":              "10.2.0.1",
+        "port":                 8080
+      }
     }
   },
 
@@ -202,6 +209,7 @@
     "recipe[rpi4_server::tor]",
     "recipe[rpi4_server::sshd_tor_hidden_service]",
     "recipe[rpi4_server::vpn]",
+    "recipe[rpi4_server::vpn_client_nat_pmp]",
 
     "recipe[applications::urxvt]",
     "recipe[applications::vim]",

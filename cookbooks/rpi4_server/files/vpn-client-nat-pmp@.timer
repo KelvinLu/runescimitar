@@ -1,0 +1,11 @@
+[Unit]
+Description=Timer for vpn-client-nat-pmp.service (%I)
+After=wg-quick@%i.service
+
+[Timer]
+OnBootSec=5
+OnUnitActiveSec=45
+Persistent=true
+
+[Install]
+WantedBy=timers.target

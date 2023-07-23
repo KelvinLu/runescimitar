@@ -1,0 +1,12 @@
+[Unit]
+Description=Port forwarding on interface %I (VPN with NAT-PMP)
+After=wg-quick@%i.service
+
+[Service]
+Type=oneshot
+
+ExecStartPre=/bin/bash /opt/vpn-client-nat-pmp/natpmpc.sh --check %I
+ExecStart=/bin/bash /opt/vpn-client-nat-pmp/natpmpc.sh %I
+
+[Install]
+WantedBy=multi-user.target
