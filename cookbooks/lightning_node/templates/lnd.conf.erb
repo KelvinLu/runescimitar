@@ -9,14 +9,20 @@ listen=0.0.0.0:9735
 <% else %>
 listen=localhost
 <% end %>
+
 <% unless @external_host.nil? %>
 externalhosts=<%= @external_host %>
 <% end %>
+
 rpclisten=127.0.0.1:10009
-<% unless @external_lnd_rest %>
 restlisten=127.0.0.1:8080
-<% else %>
-restlisten=0.0.0.0:8080
+
+<% @rest_api_interfaces&.each do |address| %>
+restlisten=<%= address %>:8080
+<% end %>
+
+<% @tlsextraip_addresses&.each do |address| %>
+tlsextraip=<%= address %>
 <% end %>
 
 debuglevel=info

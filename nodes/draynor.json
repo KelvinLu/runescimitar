@@ -61,6 +61,11 @@
     "lnd_datadir_location":     "/storage/data",
 
     "lnd": {
+      "rest_api_interfaces": [
+                              "wlan0",
+                              "draynor0"
+      ],
+
       "neutrino_mode": {
         "feeurl":               "https://nodes.lightning.computer/fees/v1/btc-fee-estimates.json",
         "peers": [

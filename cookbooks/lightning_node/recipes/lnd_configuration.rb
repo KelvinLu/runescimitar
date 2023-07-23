@@ -55,14 +55,24 @@ template '/var/lnd/.lnd/lnd.conf' do
         nil
       end
 
-    external_lnd_rest = node['lightning_node']['lnd']['external_lnd_rest']
+    rest_api_interfaces = node['lightning_node']['lnd']['rest_api_interfaces']&.map do |interface|
+      `ip -brief addr show '#{interface}'`.strip.split[2].split('/').first
+    end
+
+    tlsextraip_addresses =
+      if File.exists?('/var/lnd/.tls-ip-addresses.txt')
+        File.read('/var/lnd/.tls-ip-addresses.txt').lines.map(&:strip).compact
+      else
+        nil
+      end
 
     {
       node_alias: node_alias,
       node_color: node_color,
       hybrid_mode: hybrid_mode,
       external_host: external_host,
-      external_lnd_rest: external_lnd_rest,
+      rest_api_interfaces: rest_api_interfaces,
+      tlsextraip_addresses: tlsextraip_addresses,
       neutrino_mode: !neutrino_mode_params.nil?,
       neutrino_mode_params: neutrino_mode_params,
     }
