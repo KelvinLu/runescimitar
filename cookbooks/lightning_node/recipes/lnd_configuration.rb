@@ -46,6 +46,8 @@ template '/var/lnd/.lnd/lnd.conf' do
     node_alias = File.read('/var/lnd/.node-alias.txt').strip
     node_color = File.read('/var/lnd/.node-color.txt').strip
 
+    hybrid_mode = node['lightning_node']['lnd']['hybrid_mode']
+
     external_host =
       if File.exists?('/var/lnd/.external-host.txt')
         File.read('/var/lnd/.external-host.txt').strip
@@ -53,13 +55,14 @@ template '/var/lnd/.lnd/lnd.conf' do
         nil
       end
 
-    hybrid_mode = node['lightning_node']['lnd']['hybrid_mode']
+    external_lnd_rest = node['lightning_node']['lnd']['external_lnd_rest']
 
     {
       node_alias: node_alias,
       node_color: node_color,
-      external_host: external_host,
       hybrid_mode: hybrid_mode,
+      external_host: external_host,
+      external_lnd_rest: external_lnd_rest,
       neutrino_mode: !neutrino_mode_params.nil?,
       neutrino_mode_params: neutrino_mode_params,
     }
