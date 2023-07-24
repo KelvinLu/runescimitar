@@ -54,6 +54,10 @@ backupfilepath=/var/lnd/.scb/channel.backup
 wtclient.active=true
 wtclient.sweep-fee-rate=30
 
+<% if @watchtower_enabled %>
+watchtower.active=1
+<% end %>
+
 # Performance
 gc-canceled-invoices-on-startup=true
 gc-canceled-invoices-on-the-fly=true

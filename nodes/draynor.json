@@ -66,6 +66,8 @@
                               "draynor0"
       ],
 
+      "watchtower_enabled":     true,
+
       "neutrino_mode": {
         "feeurl":               "https://nodes.lightning.computer/fees/v1/btc-fee-estimates.json",
         "peers": [

@@ -66,6 +66,8 @@ template '/var/lnd/.lnd/lnd.conf' do
         nil
       end
 
+    watchtower_enabled = node['lightning_node']['lnd']['watchtower_enabled']
+
     {
       node_alias: node_alias,
       node_color: node_color,
@@ -73,6 +75,7 @@ template '/var/lnd/.lnd/lnd.conf' do
       external_host: external_host,
       rest_api_interfaces: rest_api_interfaces,
       tlsextraip_addresses: tlsextraip_addresses,
+      watchtower_enabled: watchtower_enabled,
       neutrino_mode: !neutrino_mode_params.nil?,
       neutrino_mode_params: neutrino_mode_params,
     }
