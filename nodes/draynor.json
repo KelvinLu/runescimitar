@@ -62,8 +62,8 @@
 
     "lnd": {
       "rest_api_interfaces": [
-                              "wlan0",
-                              "draynor0"
+                                "wlan0",
+                                "draynor0"
       ],
 
       "watchtower_enabled":     true,
