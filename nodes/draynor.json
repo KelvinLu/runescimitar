@@ -133,6 +133,10 @@
       }
     },
 
+    "tinderbox": {
+      "git_ref":                "ff8c3ad5132762b38fb4f0a8b894bc298e1720d2"
+    },
+
     "service_require": {
       "lnd.service":            ["var.mount", "storage-data.mount"]
     }
@@ -229,6 +233,7 @@
 
     "recipe[lightning_node::lntop]",
     "recipe[lightning_node::lndconnect]",
+    "recipe[lightning_node::tinderbox]",
 
     "recipe[lightning_node::lightning_terminal]",
     "recipe[lightning_node::ride_the_lightning]",
@@ -240,6 +245,7 @@
     "recipe[lightning_node::personal_user_lnd]",
     "recipe[lightning_node::personal_user_lntop]",
     "recipe[lightning_node::personal_user_lndconnect]",
-    "recipe[lightning_node::personal_user_litd]"
+    "recipe[lightning_node::personal_user_litd]",
+    "recipe[lightning_node::personal_user_tinderbox]"
   ]
 }

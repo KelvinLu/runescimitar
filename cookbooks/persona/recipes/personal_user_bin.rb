@@ -74,6 +74,7 @@ end
   lntop: '/opt/lntop/bin/lntop',
 
   lndconnect: '/opt/lndconnect/bin/lndconnect',
+  tinderbox: '/usr/local/bin/tinderbox',
 }.each do |symlink, path|
   link File.join(home_bin_dir, symlink.to_s) do
     to path
