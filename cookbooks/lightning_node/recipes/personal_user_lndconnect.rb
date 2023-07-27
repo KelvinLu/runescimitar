@@ -36,6 +36,16 @@ file File.join(Dir.home(username), 'lndconnect-invoice') do
   BASH
 end
 
+file File.join(Dir.home(username), 'lndconnect-macaroon') do
+  group lazy { Etc.getpwnam(username).gid }
+  mode '0750'
+
+  content <<~BASH
+    #!/bin/bash
+    lndconnect --readonlymacaroonpath "${1:?}" --readonly "${@:2}"
+  BASH
+end
+
 execute 'lndconnect-qr.png placeholder pipe' do
   command %w[mkfifo -m0600 lndconnect-qr.png]
 

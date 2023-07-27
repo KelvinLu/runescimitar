@@ -135,6 +135,16 @@ file File.join(Dir.home(username), 'lncli-invoice') do
   BASH
 end
 
+file File.join(Dir.home(username), 'lncli-printmacaroon') do
+  group lazy { Etc.getpwnam(username).gid }
+  mode '0750'
+
+  content <<~BASH
+    #!/bin/bash
+    lncli printmacaroon --macaroon_file "$@"
+  BASH
+end
+
 file File.join(Dir.home(username), 'unlock-lnd') do
   group lazy { Etc.getpwnam(username).gid }
   mode '0750'
