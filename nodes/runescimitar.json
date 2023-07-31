@@ -197,6 +197,10 @@
       }
     },
 
+    "scrying_orb": {
+      "git_ref":                "2f1ffa3370a3f68d9b9db09c8623458284d88257"
+    },
+
     "service_require": {
       "lnd.service":            ["var.mount", "storage-data.mount"]
     }
@@ -342,6 +346,7 @@
 
     "recipe[lightning_node::lntop]",
     "recipe[lightning_node::lndconnect]",
+    "recipe[lightning_node::scrying_orb]",
 
     "recipe[lightning_node::lightning_terminal]",
     "recipe[lightning_node::ride_the_lightning]",
@@ -362,6 +367,7 @@
     "recipe[lightning_node::personal_user_lndconnect]",
     "recipe[lightning_node::personal_user_litd]",
     "recipe[lightning_node::personal_user_charge_lnd]",
-    "recipe[lightning_node::personal_user_rebalance_lnd]"
+    "recipe[lightning_node::personal_user_rebalance_lnd]",
+    "recipe[lightning_node::personal_user_scrying_orb]"
   ]
 }

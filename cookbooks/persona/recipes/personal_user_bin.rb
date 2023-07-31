@@ -75,6 +75,7 @@ end
 
   lndconnect: '/opt/lndconnect/bin/lndconnect',
   tinderbox: '/usr/local/bin/tinderbox',
+  'scrying-orb': '/usr/local/bin/scrying-orb',
 }.each do |symlink, path|
   link File.join(home_bin_dir, symlink.to_s) do
     to path
