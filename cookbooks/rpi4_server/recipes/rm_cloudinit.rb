@@ -27,3 +27,7 @@ end
 apt_package 'cloud-init' do
   action :purge
 end
+
+file '/etc/ssh/sshd_config.d/50-cloud-init.conf' do
+  action :delete
+end
