@@ -134,7 +134,7 @@
     },
 
     "tinderbox": {
-      "git_ref":                "fb7a1b5889f95cb7a15a2fd6f74f1ad57f7768de"
+      "git_ref":                "a931a77687097ed70a0b3b7e5897822d1933e2b6"
     },
 
     "service_require": {
@@ -158,6 +158,11 @@
           "bindsym":            "r",
           "label":              "Ride The Lightning",
           "command":            "kiosk-firefox https://localhost:4001"
+        },
+        {
+          "bindsym":            "x",
+          "label":              "Tinderbox",
+          "command":            "kiosk-firefox https://localhost:8420"
         }
       ],
 
