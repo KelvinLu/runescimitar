@@ -1,0 +1,320 @@
+{
+  "name":                       "varrock",
+  "description":                "Raspberry Pi 4",
+
+  "set_fqdn":                   "*.local",
+
+  "rpi4_server": {
+    "operator_user":            "wizard",
+
+    "ssh_allow_users":          ["wizard", "cleric"],
+    "ssh_deny_users":           ["nomad"],
+
+    "storage": {
+      "mount": {
+        "b317cfd2-1ce0-4d82-b514-bfbd5a17ded4": {
+          "path":               "data",
+          "fstype":             "ext4"
+        }
+      },
+
+      "var_mount": {
+        "path":                 "data",
+        "marker_file":          ".VAR_MOUNT_BIND"
+      }
+    },
+
+    "swap": {
+      "device":                 "b317cfd2-1ce0-4d82-b514-bfbd5a17ded4",
+      "file":                   "/storage/data/swapfile",
+      "size_mb":                20480
+    },
+
+    "zram_swap": {
+      "devices":                1,
+      "uncompressed_limit_mb":  10240
+    },
+
+
+    "gpio_fan": {
+      "gpio_pin":               14,
+      "temp_millicelsius":      45000
+    },
+
+    "vpn_client_nat_pmp": {
+      "varrock0": {
+        "gateway":              "10.2.0.1",
+        "port":                 8080
+      }
+    }
+  },
+
+  "bitcoin_node": {
+    "bitcoin_core_version":     "26.0",
+
+    "sha256_checksums": {
+      "archive_targz":          "9cf64f42c72d8a96892aa1e2ec9cbca6f3b7094148a8261127390bc6fb4d20c4",
+      "sha256sums":             "63487c308a6655f939efd700bfca8e0285fa2f869283aaa7192bdd4b8799a747",
+      "sha256sums_asc":         "8d3ce530272308686554e06f690b3ec04b4257b4f178e145e49c93e891193823",
+      "sha256sums_ots":         "c0bbe009ebf53621422db421d4bf942b9953fe5bc8a7c9bf0c52a5c8ea1987a5"
+    },
+    "gpg_trust_builder_keys": {
+      "github_repository_id":   355107265
+    },
+    "rpcauth_script_sha256":    "b0920f6d96f8c72cee49df90ee4d0bf826bbe845596ecc056c6bc0873c146d1f",
+
+    "initial_block_download":   false,
+    "ibd_dbcache_mb":           4000,
+
+    "blocksdir_location":       "/storage/data/bitcoin",
+
+    "service_require": {
+      "bitcoind.service":       ["var.mount", "storage-data.mount"]
+    },
+
+    "btc_rpc_proxy": {
+      "git_ref":                "ed018d48586a10d72d81ceef452b41cdca36c390"
+    },
+
+    "fulcrum": {
+      "version":                "1.9.7",
+
+      "sha256_checksums": {
+        "archive_targz":        "0bdfff09f9152303706357f550d2f69886c4fe4f54fdcaa0d7032b142be0de39",
+        "sha256sums":           "4a2988f3222d84a63b92ac4e4104f4457b327b56efd7008e476619a711d5e3e9",
+        "sha256sums_asc":       "4ae43065f02ec5796bd6fe0ef58cf2b7ad20d0b3e209e81e0e17ce29bc695e44",
+        "calinkey_txt":         "1879e1c3810d300119f983ad3e2ebb50509949c6e51efa5087326e5cf6c87868"
+      },
+
+      "fast_sync_memory_mb":    2048
+    },
+
+    "sparrow": {
+      "version":                "1.8.1",
+
+      "sha256_checksums": {
+        "sparrow_server":       "9afcdea9e1693458ff880aab0d5f9a7abdb342ed2cbe8feb2d38d87791fb20aa",
+        "manifest_txt":         "5f6af456fedbd5415063e3ffd50010eb248abc513abe65bee0376387fc5e965b",
+        "manifest_txt_asc":     "4af18f5f22ce154b9dd078ff2d28371564477a2bdb20f0b4f96da4d4305271a0",
+        "craig_raw_gpg_key":    "f1efc0826e3db56d5b35e077a035d06647692054b8a0b2c84e329c1d501a2e5d"
+      }
+    }
+  },
+
+  "lightning_node": {
+    "scb_local_dir" :           "~/usb-drive/lightning-material/scb",
+    "scb_backup_user" :         "cleric",
+
+    "lnd_datadir_location":     "/storage/data",
+
+    "lnd": {
+      "rest_api_interfaces": [
+                                "wlan0",
+                                "varrock0"
+      ],
+
+      "watchtower_enabled":     true,
+
+      "version":                "0.17.3-beta",
+
+      "sha256_checksums": {
+        "archive_targz":        "89fe64338c4d92da25552224bc3adbd32e53283954bc8e4803354b0387782402",
+        "manifest_txt":         "f1185f6f4120bf4df031f2f9bc152c9bdd6e15f90ff96b3f4ae35064eeb6516b",
+        "manifest_sig":         "065d8539d3f77e075a3ff46d5212562d68f5f710da454fa1600d584c4aad1db2",
+        "manifest_sig_ots":     "105f58cd09788a69f109207c8f9d607113a65270241259a73ddf7a8709064776",
+
+        "roasbeef_gpg_key":     "6b196ef3d63804d1d3665f9c3184763e86858529ac49f94c964a5980e85738d3"
+      }
+    },
+
+    "lightning_terminal": {
+      "version":                "0.12.2-alpha",
+
+      "sha256_checksums": {
+        "archive_targz":        "324eebcd90cc784f21c9025e6b428f22c2fefe595e5f97202421a9f43ced5b45",
+        "manifest_txt":         "09850c5694e6a0fb5fb6d3080bf1a8a7d369def5c590eddc4192885a0256dbac",
+        "manifest_sig":         "c142bfa4ca0bf207bec2709701c646f5b061de9e8dcec2e195d03db66d79d76f",
+        "manifest_sig_ots":     "e2c307c047f084e23a1a975616e154e29ca405014b6b43bf6781987768dd2ecc"
+      }
+    },
+
+    "ride_the_lightning": {
+      "version":                "0.15.0",
+
+      "sha256_checksums": {
+        "archive_targz":        "f177a65d8ae4830ef3e617112fb711f0f308d9efe0b9337c234c09bd3c36b469",
+        "archive_targz_sig":    "225e34f02cf639f615edae87c94f9110d7c07574789e603fadaf5e9071602a01",
+
+        "saubyk_gpg_key":       "3d89773a42801624e16f630419d6d8dc866f21741af7b50a9f530d127d6db932"
+      }
+    },
+
+    "lntop": {
+      "version":                "0.4.0",
+
+      "sha256_checksums": {
+        "archive_targz":        "720e60ec0aa92db12e03ea8e3e8fc2fcb46248654a395b6aceb8553a5251e92f",
+        "checksums_txt":        "b42882987fdb681d35ae897e818bf3fe8cb4e406e71cab5c111d6cefcd5817f2",
+        "checksums_txt_sig":    "38850a1f3a38845debe0950c54387ab94d4ad5dff543eace89fef7829f9296d8",
+
+        "edouardparis_gpg_key": "fdbf14f5efd896beffe1b4a801d686905f92f14e0893867d70164ead6ea470b8"
+      }
+    },
+
+    "lndconnect": {
+      "version":                "0.2.0",
+
+      "sha256_checksums": {
+        "archive_targz":        "d9abcf75d2e284cde122a6df93bcbff0372c692b994cf02056136d854a7455a5"
+      }
+    },
+
+    "tinderbox": {
+      "git_ref":                "a931a77687097ed70a0b3b7e5897822d1933e2b6"
+    },
+
+    "service_require": {
+      "lnd.service":            ["var.mount", "storage-data.mount"]
+    }
+  },
+
+  "persona": {
+    "root_location":            "/storage/data",
+
+    "personal_user": {
+      "name":                   "cleric",
+
+      "spellbook": [
+        {
+          "bindsym":            "t",
+          "label":              "Lightning Terminal",
+          "command":            "kiosk-firefox https://localhost:8443"
+        },
+        {
+          "bindsym":            "r",
+          "label":              "Ride The Lightning",
+          "command":            "kiosk-firefox https://localhost:4001"
+        },
+        {
+          "bindsym":            "x",
+          "label":              "Tinderbox",
+          "command":            "kiosk-firefox https://localhost:8420"
+        }
+      ],
+
+      "removable_media": {
+        "C976-C83E": {
+          "path":               "usb-drive",
+          "fstype":             "vfat"
+        },
+        "1FE9-3335": {
+          "path":               "sd-card",
+          "fstype":             "vfat"
+        }
+      }
+    },
+
+    "guest_user": {
+      "name":                   "nomad",
+
+      "tmpfs_workspace": {
+        "size_mb":              128
+      }
+    }
+  },
+
+  "applications": {
+    "vim_plug_install": {
+      "users":                  ["wizard"]
+    }
+  },
+
+  "customization": {
+    "urxvt_font": {
+      "wizard": {
+        "font":                 "Comic Mono",
+        "font_size":            10,
+        "include_recipe":       "customization::font_comic_mono"
+      }
+    },
+    "urxvt_transparency": {
+      "wizard": {
+        "shading":              40
+      }
+    }
+  },
+
+  "run_list": [
+    "recipe[rpi4_server::cmdline]",
+    "recipe[rpi4_server::dtoverlay]",
+
+    "recipe[hostname::default]",
+
+    "recipe[rpi4_server::etc_bashrc]",
+    "recipe[rpi4_server::home_config]",
+
+    "recipe[rpi4_server::network]",
+
+    "recipe[rpi4_server::storage]",
+    "recipe[rpi4_server::var_mount]",
+
+    "recipe[rpi4_server::swap_space]",
+    "recipe[rpi4_server::ulimits]",
+    "recipe[rpi4_server::zram]",
+
+    "recipe[rpi4_server::i3wm]",
+    "recipe[rpi4_server::x11_config]",
+
+    "recipe[rpi4_server::disable_services]",
+    "recipe[rpi4_server::rm_snapd]",
+    "recipe[rpi4_server::rm_cloudinit]",
+    "recipe[rpi4_server::rm_unattended_upgrades]",
+
+    "recipe[rpi4_server::sshd_config]",
+
+    "recipe[rpi4_server::ufw]",
+    "recipe[rpi4_server::fail2ban]",
+
+    "recipe[rpi4_server::nginx]",
+    "recipe[rpi4_server::tor]",
+    "recipe[rpi4_server::sshd_tor_hidden_service]",
+    "recipe[rpi4_server::vpn]",
+    "recipe[rpi4_server::vpn_client_nat_pmp]",
+
+    "recipe[applications::urxvt]",
+    "recipe[applications::vim]",
+    "recipe[applications::feh]",
+    "recipe[applications::feh_viewer]",
+    "recipe[applications::opentimestamps]",
+    "recipe[applications::firefox]",
+
+    "recipe[bitcoin_node::bitcoin_core]",
+    "recipe[bitcoin_node::btc_rpc_proxy]",
+    "recipe[bitcoin_node::fulcrum]",
+
+    "recipe[bitcoin_node::sparrow]",
+
+    "recipe[lightning_node::lnd]",
+    "recipe[lightning_node::lnd_scb]",
+
+    "recipe[lightning_node::lntop]",
+    "recipe[lightning_node::lndconnect]",
+    "recipe[lightning_node::tinderbox]",
+
+    "recipe[lightning_node::lightning_terminal]",
+    "recipe[lightning_node::ride_the_lightning]",
+
+    "recipe[persona::personal_user]",
+    "recipe[persona::guest_user]",
+
+    "recipe[persona::user_wallet]",
+    "recipe[persona::firefox]",
+
+    "recipe[lightning_node::personal_user_lnd]",
+    "recipe[lightning_node::personal_user_lnd_scb]",
+    "recipe[lightning_node::personal_user_lntop]",
+    "recipe[lightning_node::personal_user_lndconnect]",
+    "recipe[lightning_node::personal_user_litd]",
+    "recipe[lightning_node::personal_user_tinderbox]"
+  ]
+}
