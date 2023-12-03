@@ -14,36 +14,40 @@ removable_media.each do |uuid, params|
   path = params.fetch('path')
   fstype = params.fetch('fstype', 'auto')
 
-  mountpoint = File.join(Dir.home(username), path)
+  directory 'mount point' do
+    path lazy { File.join(Dir.home(username), path) }
 
-  directory mountpoint do
     mode '0751'
   end
 
-  ruby_block "assert #{mountpoint} is empty" do
-    block { raise "Expected #{mountpoint} to be empty" unless Dir.empty?(mountpoint) }
+  ruby_block 'assert mount point is empty' do
+    block { raise 'Expected mount point to be empty' unless Dir.empty?(File.join(Dir.home(username), path)) }
 
-    only_if { get_mount_point(mountpoint) == '/' }
+    only_if { get_mount_point(File.join(Dir.home(username), path)) == '/' }
   end
 
-  execute "set immutable attribute #{mountpoint}" do
-    command ['chattr', '+i', mountpoint]
+  execute 'set immutable attribute on mount point' do
+    command lazy { ['chattr', '+i', File.join(Dir.home(username), path)] }
 
-    only_if { get_mount_point(mountpoint) == '/' }
+    only_if { get_mount_point(File.join(Dir.home(username), path)) == '/' }
   end
 
-  mount mountpoint do
+  mount 'mount point fstab entry' do
+    mount_point lazy { File.join(Dir.home(username), path) }
+
     device uuid
     device_type :uuid
 
     fstype fstype
 
-    options %w[
-      rw nosuid nodev noexec noatime nodiratime noauto user async
-      umask=0077
-    ] + %W[
-      uid=#{Etc.getpwnam(username).uid} gid=#{Etc.getpwnam(username).gid}
-    ]
+    options lazy {
+      %w[
+        rw nosuid nodev noexec noatime nodiratime noauto user async
+        umask=0077
+      ] + %W[
+        uid=#{Etc.getpwnam(username).uid} gid=#{Etc.getpwnam(username).gid}
+      ]
+    }
     dump 0
     pass 2
 
