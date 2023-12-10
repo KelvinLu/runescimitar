@@ -1,0 +1,117 @@
+{
+  "name":                       "rimmington",
+  "description":                "Raspberry Pi 4",
+
+  "set_fqdn":                   "*.local",
+
+  "rpi4_server": {
+    "operator_user":            "wizard",
+
+    "ssh_allow_users":          ["wizard", "sage", "git"],
+
+    "storage": {
+      "mount": {
+        "be1b3e0e-d984-4b5d-9d31-58bee63bafb4": {
+          "path":               "system",
+          "fstype":             "ext4"
+        },
+        "3fdea2ef-14b7-4441-bd72-ff3890085a2b": {
+          "path":               "docker",
+          "fstype":             "ext4"
+        },
+        "b36b1f66-1d28-4bdb-837d-d700184faf11": {
+          "path":               "data",
+          "fstype":             "ext4"
+        },
+        "c6416689-3484-461f-8212-4f0bf9ff0080": {
+          "path":               "archive0",
+          "fstype":             "ext4"
+        },
+        "caede6c5-af4a-431f-9e43-7609572cbafa": {
+          "path":               "archive1",
+          "fstype":             "ext4"
+        },
+        "8F10-D1FD": {
+          "path":               "usb0",
+          "fstype":             "vfat"
+        },
+        "9062-41B9": {
+          "path":               "usb1",
+          "fstype":             "vfat"
+        }
+      },
+
+      "var_mount": {
+        "path":                 "system",
+        "marker_file":          ".VAR_MOUNT_BIND"
+      }
+    },
+
+    "swap": {
+      "device":                 "be1b3e0e-d984-4b5d-9d31-58bee63bafb4",
+      "file":                   "/storage/system/swapfile",
+      "size_mb":                20480
+    },
+
+    "zram_swap": {
+      "devices":                1,
+      "uncompressed_limit_mb":  10240
+    }
+  },
+
+  "applications": {
+    "vim_plug_install": {
+      "users":                  ["wizard"]
+    }
+  },
+
+  "customization": {
+    "urxvt_font": {
+      "wizard": {
+        "font":                 "Comic Mono",
+        "font_size":            10,
+        "include_recipe":       "customization::font_comic_mono"
+      }
+    },
+    "urxvt_transparency": {
+      "wizard": {
+        "shading":              40
+      }
+    }
+  },
+
+  "run_list": [
+    "recipe[rpi4_server::cmdline]",
+    "recipe[rpi4_server::dtoverlay]",
+
+    "recipe[hostname::default]",
+
+    "recipe[rpi4_server::etc_bashrc]",
+    "recipe[rpi4_server::home_config]",
+
+    "recipe[rpi4_server::network]",
+
+    "recipe[rpi4_server::storage]",
+    "recipe[rpi4_server::var_mount]",
+
+    "recipe[rpi4_server::swap_space]",
+    "recipe[rpi4_server::ulimits]",
+    "recipe[rpi4_server::zram]",
+
+    "recipe[rpi4_server::i3wm]",
+    "recipe[rpi4_server::x11_config]",
+
+    "recipe[rpi4_server::disable_services]",
+    "recipe[rpi4_server::rm_snapd]",
+    "recipe[rpi4_server::rm_cloudinit]",
+    "recipe[rpi4_server::rm_unattended_upgrades]",
+
+    "recipe[rpi4_server::sshd_config]",
+
+    "recipe[rpi4_server::ufw]",
+    "recipe[rpi4_server::fail2ban]",
+
+    "recipe[applications::urxvt]",
+    "recipe[applications::vim]"
+  ]
+}
