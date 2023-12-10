@@ -33,11 +33,17 @@
         },
         "8F10-D1FD": {
           "path":               "usb0",
-          "fstype":             "vfat"
+          "fstype":             "vfat",
+          "owner":              "sage",
+          "group":              "sage",
+          "umask":              "0077"
         },
         "9062-41B9": {
           "path":               "usb1",
-          "fstype":             "vfat"
+          "fstype":             "vfat",
+          "owner":              "sage",
+          "group":              "sage",
+          "umask":              "0077"
         }
       },
 
@@ -80,6 +86,17 @@
     }
   },
 
+  "archive": {
+    "users": {
+      "sage": "/storage/data/sage",
+      "git": "/storage/data/git"
+    },
+
+    "imp_box": {
+      "git_ref": "7bb60c1a7977d33a4807cc96ff55cbe2ddbd6fea"
+    }
+  },
+
   "run_list": [
     "recipe[rpi4_server::cmdline]",
     "recipe[rpi4_server::dtoverlay]",
@@ -112,6 +129,8 @@
     "recipe[rpi4_server::fail2ban]",
 
     "recipe[applications::urxvt]",
-    "recipe[applications::vim]"
+    "recipe[applications::vim]",
+
+    "recipe[archive::archive]"
   ]
 }
