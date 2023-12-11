@@ -6,8 +6,8 @@
 GITHUB_FULCRUM_RELEASES_URL = Proc.new { |version, filename| "https://github.com/cculianu/Fulcrum/releases/download/v#{version}/#{filename.call(version)}" }
 
 ARCHIVE_FILENAME = Proc.new { |version| "Fulcrum-#{version}-arm64-linux.tar.gz" }
-SIGNATURE_FILENAME = Proc.new { |version| "Fulcrum-#{version}-arm64-linux.tar.gz.asc" }
-CHECKSUMS_FILENAME = Proc.new { |version| "Fulcrum-#{version}-arm64-linux.tar.gz.sha256sum" }
+CHECKSUMS_FILENAME = Proc.new { |version| "Fulcrum-#{version}-shasums.txt" }
+SIGNATURE_FILENAME = Proc.new { |version| "Fulcrum-#{version}-shasums.txt.asc" }
 
 GPG_KEY_CALIN_CULIANU_URL = 'https://raw.githubusercontent.com/Electron-Cash/keys-n-hashes/master/pubkeys/calinkey.txt'
 
@@ -104,24 +104,24 @@ remote_file File.join(versioned_dir, ARCHIVE_FILENAME.call(fulcrum_version)) do
   checksum sha256_checksums.fetch('archive_targz')
 end
 
-remote_file File.join(versioned_dir, SIGNATURE_FILENAME.call(fulcrum_version)) do
-  source File.join(GITHUB_FULCRUM_RELEASES_URL.call(fulcrum_version, SIGNATURE_FILENAME))
-
-  mode '0644'
-
-  checksum sha256_checksums.fetch('archive_targz_asc')
-end
-
 remote_file File.join(versioned_dir, CHECKSUMS_FILENAME.call(fulcrum_version)) do
   source File.join(GITHUB_FULCRUM_RELEASES_URL.call(fulcrum_version, CHECKSUMS_FILENAME))
 
   mode '0644'
 
-  checksum sha256_checksums.fetch('sha256sum')
+  checksum sha256_checksums.fetch('sha256sums')
+end
+
+remote_file File.join(versioned_dir, SIGNATURE_FILENAME.call(fulcrum_version)) do
+  source File.join(GITHUB_FULCRUM_RELEASES_URL.call(fulcrum_version, SIGNATURE_FILENAME))
+
+  mode '0644'
+
+  checksum sha256_checksums.fetch('sha256sums_asc')
 end
 
 execute 'checksums sha256sums (fulcrum)' do
-  command [*%w[sha256sum --check], CHECKSUMS_FILENAME.call(fulcrum_version)]
+  command [*%w[sha256sum --check --ignore-missing], CHECKSUMS_FILENAME.call(fulcrum_version)]
   cwd versioned_dir
 
   action :nothing
