@@ -80,6 +80,12 @@ directory File.join(outer_dir, 'faraday') do
   mode '0751'
 end
 
+directory File.join(outer_dir, 'tapd') do
+  owner lazy { Etc.getpwnam('lightning-terminal').uid }
+  group lazy { Etc.getpwnam('lightning-terminal').gid }
+  mode '0751'
+end
+
 link '/var/lightning-terminal/.lnd' do
   to '/var/lnd/.lnd'
 end
@@ -98,6 +104,10 @@ end
 
 link '/var/lightning-terminal/.faraday' do
   to File.join(outer_dir, 'faraday')
+end
+
+link '/var/lightning-terminal/.tapd' do
+  to File.join(outer_dir, 'tapd')
 end
 
 include_recipe 'lightning_node::lightning_terminal_installation'
