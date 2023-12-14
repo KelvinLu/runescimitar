@@ -41,10 +41,19 @@ node['rpi4_server']&.[]('storage')&.[]('mount').each do |uuid, params|
 
     fstype fstype
 
-    options %w[
-      rw nosuid nodev noexec noatime nodiratime auto nouser async nofail
-      x-systemd.device-timeout=10s
-    ]
+    options lazy {
+      options = %w[
+        rw nosuid nodev noexec noatime nodiratime auto nouser async nofail
+        x-systemd.device-timeout=10s
+      ]
+
+      options = options.push("uid=#{Etc.getpwnam(params.fetch('owner')).uid}") if params.key?('owner')
+      options = options.push("gid=#{Etc.getgrnam(params.fetch('group')).gid}") if params.key?('group')
+      options = options.push("mode=#{params.fetch('mode')}") if params.key?('mode')
+      options = options.push("umask=#{params.fetch('umask')}") if params.key?('umask')
+
+      options
+    }
     dump 0
     pass 2
 
