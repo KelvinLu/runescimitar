@@ -1,5 +1,5 @@
 {
-  "name":                       "draynor",
+  "name":                       "lumbridge",
   "description":                "Raspberry Pi 4",
 
   "set_fqdn":                   "*.local",
@@ -44,7 +44,7 @@
     },
 
     "vpn_client_nat_pmp": {
-      "draynor0": {
+      "lumbridge0": {
         "gateway":              "10.2.0.1",
         "port":                 8080
       }
@@ -63,7 +63,7 @@
     "lnd": {
       "rest_api_interfaces": [
                                 "wlan0",
-                                "draynor0"
+                                "lumbridge0"
       ],
 
       "watchtower_enabled":     true,
