@@ -16,7 +16,7 @@
           "fstype":             "ext4"
         },
         "3fdea2ef-14b7-4441-bd72-ff3890085a2b": {
-          "path":               "docker",
+          "path":               "applications",
           "fstype":             "ext4"
         },
         "b36b1f66-1d28-4bdb-837d-d700184faf11": {
