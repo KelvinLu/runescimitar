@@ -127,6 +127,7 @@
 
     "recipe[rpi4_server::ufw]",
     "recipe[rpi4_server::fail2ban]",
+    "recipe[rpi4_server::tailscale]",
 
     "recipe[applications::urxvt]",
     "recipe[applications::vim]",
