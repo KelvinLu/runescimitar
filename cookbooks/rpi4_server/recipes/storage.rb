@@ -51,6 +51,8 @@ node['rpi4_server']&.[]('storage')&.[]('mount').each do |uuid, params|
       options = options.push("gid=#{Etc.getgrnam(params.fetch('group')).gid}") if params.key?('group')
       options = options.push("mode=#{params.fetch('mode')}") if params.key?('mode')
       options = options.push("umask=#{params.fetch('umask')}") if params.key?('umask')
+      options = options.push("fmask=#{params.fetch('fmask')}") if params.key?('fmask')
+      options = options.push("dmask=#{params.fetch('dmask')}") if params.key?('dmask')
 
       options
     }

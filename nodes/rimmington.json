@@ -36,14 +36,16 @@
           "fstype":             "vfat",
           "owner":              "sage",
           "group":              "sage",
-          "umask":              "0077"
+          "fmask":              "0177",
+          "dmask":              "0077"
         },
         "9062-41B9": {
           "path":               "usb1",
           "fstype":             "vfat",
           "owner":              "sage",
           "group":              "sage",
-          "umask":              "0077"
+          "fmask":              "0177",
+          "dmask":              "0077"
         }
       },
 
