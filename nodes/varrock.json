@@ -110,7 +110,8 @@
     "lnd": {
       "rest_api_interfaces": [
                                 "wlan0",
-                                "varrock0"
+                                "varrock0",
+                                "tailscale0"
       ],
 
       "watchtower_enabled":     true,
