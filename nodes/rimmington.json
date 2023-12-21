@@ -70,6 +70,10 @@
   "applications": {
     "vim_plug_install": {
       "users":                  ["wizard"]
+    },
+
+    "gatus": {
+      "git_ref":                "76111ee13310e76b155cbec6c0f6fe2b816ddc64"
     }
   },
 
@@ -134,6 +138,8 @@
     "recipe[applications::urxvt]",
     "recipe[applications::vim]",
 
-    "recipe[archive::archive]"
+    "recipe[archive::archive]",
+
+    "recipe[applications::gatus]"
   ]
 }
