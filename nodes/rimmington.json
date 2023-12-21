@@ -90,12 +90,12 @@
 
   "archive": {
     "users": {
-      "sage": "/storage/data/sage",
-      "git": "/storage/data/git"
+      "sage":                   "/storage/data/sage",
+      "git":                    "/storage/data/git"
     },
 
     "imp_box": {
-      "git_ref": "7bb60c1a7977d33a4807cc96ff55cbe2ddbd6fea"
+      "git_ref":                "7bb60c1a7977d33a4807cc96ff55cbe2ddbd6fea"
     }
   },
 
