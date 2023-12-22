@@ -140,6 +140,8 @@
 
     "recipe[archive::archive]",
 
-    "recipe[applications::gatus]"
+    "recipe[applications::gatus]",
+
+    "recipe[applications::docker_rootless]"
   ]
 }
