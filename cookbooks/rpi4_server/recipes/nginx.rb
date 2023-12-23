@@ -3,8 +3,7 @@
 # Recipe:: nginx
 #
 
-server_name   = node['name'] || 'localhost'
-file_basename = "#{server_name}_self-signed"
+server_name = node['name'] || 'localhost'
 
 apt_package 'nginx' do
   action :install
@@ -13,13 +12,13 @@ end
 execute 'self-signed server certificate for nginx' do
   command %W[
     openssl req -x509 -newkey rsa:4096 -nodes
-      -keyout /etc/ssl/private/#{file_basename}.key
-      -out /etc/ssl/certs/#{file_basename}.cert
+      -keyout /etc/ssl/private/#{server_name}.key
+      -out /etc/ssl/certs/#{server_name}.cert
       -subj /CN=#{server_name}
       -days 730
   ]
 
-  creates "/etc/ssl/certs/#{file_basename}.cert"
+  creates "/etc/ssl/certs/#{server_name}.cert"
 end
 
 user 'nginx' do
@@ -38,7 +37,7 @@ end
 template '/etc/nginx/nginx.conf' do
   source 'nginx.conf.erb'
 
-  variables(file_basename: file_basename)
+  variables(file_basename: server_name)
 
   mode '0644'
 end
