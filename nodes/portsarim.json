@@ -1,0 +1,130 @@
+{
+  "name":                       "portsarim",
+  "description":                "Raspberry Pi 4",
+
+  "set_fqdn":                   "*.local",
+
+  "rpi4_server": {
+    "operator_user":            "wizard",
+
+    "ssh_allow_users":          ["wizard"],
+
+    "storage": {
+      "mount": {
+        "4be06ce7-9a41-43c6-9c80-df9d2c701e61": {
+          "path":               "system",
+          "fstype":             "ext4"
+        },
+        "097ea260-3215-4c3c-9533-ddedfad7d424": {
+          "path":               "applications",
+          "fstype":             "ext4"
+        },
+        "46B1-7C38": {
+          "path":               "usb-drive",
+          "fstype":             "vfat",
+          "owner":              "wizard",
+          "group":              "wizard",
+          "fmask":              "0177",
+          "dmask":              "0077"
+        }
+      },
+
+      "var_mount": {
+        "path":                 "system",
+        "marker_file":          ".VAR_MOUNT_BIND"
+      }
+    },
+
+    "swap": {
+      "device":                 "4be06ce7-9a41-43c6-9c80-df9d2c701e61",
+      "file":                   "/storage/system/swapfile",
+      "size_mb":                20480
+    },
+
+    "zram_swap": {
+      "devices":                1,
+      "uncompressed_limit_mb":  10240
+    },
+
+    "gpio_fan": {
+      "gpio_pin":               14,
+      "temp_millicelsius":      45000
+    },
+
+    "vpn_client_nat_pmp": {
+      "portsarim0": {
+        "gateway":              "10.2.0.1",
+        "port":                 8002
+      }
+    }
+  },
+
+  "applications": {
+    "vim_plug_install": {
+      "users":                  ["wizard"]
+    },
+
+    "docker": {
+      "storage_location":       "/storage/applications"
+    }
+  },
+
+  "customization": {
+    "urxvt_font": {
+      "wizard": {
+        "font":                 "Comic Mono",
+        "font_size":            10,
+        "include_recipe":       "customization::font_comic_mono"
+      }
+    },
+    "urxvt_transparency": {
+      "wizard": {
+        "shading":              40
+      }
+    }
+  },
+
+  "run_list": [
+    "recipe[rpi4_server::cmdline]",
+    "recipe[rpi4_server::dtoverlay]",
+
+    "recipe[hostname::default]",
+
+    "recipe[rpi4_server::etc_bashrc]",
+    "recipe[rpi4_server::home_config]",
+
+    "recipe[rpi4_server::network]",
+
+    "recipe[rpi4_server::storage]",
+    "recipe[rpi4_server::var_mount]",
+
+    "recipe[rpi4_server::swap_space]",
+    "recipe[rpi4_server::ulimits]",
+    "recipe[rpi4_server::zram]",
+
+    "recipe[rpi4_server::i3wm]",
+    "recipe[rpi4_server::x11_config]",
+
+    "recipe[rpi4_server::disable_services]",
+    "recipe[rpi4_server::rm_snapd]",
+    "recipe[rpi4_server::rm_cloudinit]",
+    "recipe[rpi4_server::rm_unattended_upgrades]",
+
+    "recipe[rpi4_server::sshd_config]",
+
+    "recipe[rpi4_server::ufw]",
+    "recipe[rpi4_server::fail2ban]",
+
+    "recipe[rpi4_server::nginx]",
+    "recipe[rpi4_server::tor]",
+    "recipe[rpi4_server::sshd_tor_hidden_service]",
+    "recipe[rpi4_server::vpn]",
+    "recipe[rpi4_server::vpn_client_nat_pmp]",
+    "recipe[rpi4_server::tailscale]",
+
+    "recipe[applications::urxvt]",
+    "recipe[applications::vim]",
+
+    "recipe[applications::docker]"
+  ]
+}
