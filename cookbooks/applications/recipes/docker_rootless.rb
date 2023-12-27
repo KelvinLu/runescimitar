@@ -8,6 +8,8 @@ SHA256_DIGEST_KEY = '1500c1f56fa9e26b9b8f42452a553675796ade0807cdce11975eb98170b
 
 lsb_release_codename = `lsb_release -c`.strip.delete_prefix("Codename:\t")
 
+alternate_storage_location = node['applications']&.[]('docker')&.[]('storage_location')
+
 user 'docker' do
   home '/var/docker'
   shell '/usr/bin/bash'
@@ -74,6 +76,30 @@ cookbook_file '/var/docker/.config/systemd/user/docker.service' do
 
   group lazy { Etc.getpwnam('docker').gid }
   mode '0755'
+end
+
+unless alternate_storage_location.nil?
+  directory '/var/docker/.local' do
+    user lazy { Etc.getpwnam('docker').uid }
+    group lazy { Etc.getpwnam('docker').gid }
+    mode '0711'
+  end
+
+  directory '/var/docker/.local/share' do
+    user lazy { Etc.getpwnam('docker').uid }
+    group lazy { Etc.getpwnam('docker').gid }
+    mode '0711'
+  end
+
+  directory File.join(alternate_storage_location, 'docker') do
+    user lazy { Etc.getpwnam('docker').uid }
+    group lazy { Etc.getpwnam('docker').gid }
+    mode '0710'
+  end
+
+  link '/var/docker/.local/share/docker' do
+    to File.join(alternate_storage_location, 'docker')
+  end
 end
 
 remote_file 'docker gpg key' do
