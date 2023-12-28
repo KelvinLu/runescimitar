@@ -1,6 +1,6 @@
 #
 # Cookbook:: applications
-# Recipe:: docker_rootless
+# Recipe:: docker
 #
 
 DOCKER_GPG_KEY_URL = 'https://download.docker.com/linux/ubuntu/gpg'
@@ -9,6 +9,7 @@ SHA256_DIGEST_KEY = '1500c1f56fa9e26b9b8f42452a553675796ade0807cdce11975eb98170b
 lsb_release_codename = `lsb_release -c`.strip.delete_prefix("Codename:\t")
 
 alternate_storage_location = node['applications']&.[]('docker')&.[]('storage_location')
+rootless_mode = node['applications']&.[]('docker')&.[]('rootless') || false
 
 user 'docker' do
   home '/var/docker'
@@ -43,17 +44,23 @@ directory '/var/docker/.docker' do
   user lazy { Etc.getpwnam('docker').uid }
   group lazy { Etc.getpwnam('docker').gid }
   mode '0755'
+
+  only_if { rootless_mode }
 end
 
 directory '/var/docker/.docker/run' do
   user lazy { Etc.getpwnam('docker').uid }
   group lazy { Etc.getpwnam('docker').gid }
   mode '0755'
+
+  only_if { rootless_mode }
 end
 
 link 'link docker socket' do
   target_file '/var/docker/.docker/run/docker.sock'
   to lazy { "/run/user/#{Etc.getpwnam('docker').uid}/docker.sock" }
+
+  only_if { rootless_mode }
 end
 
 directory '/var/docker/.config' do
@@ -76,6 +83,8 @@ cookbook_file '/var/docker/.config/systemd/user/docker.service' do
 
   group lazy { Etc.getpwnam('docker').gid }
   mode '0755'
+
+  only_if { rootless_mode }
 end
 
 unless alternate_storage_location.nil?
@@ -83,12 +92,16 @@ unless alternate_storage_location.nil?
     user lazy { Etc.getpwnam('docker').uid }
     group lazy { Etc.getpwnam('docker').gid }
     mode '0711'
+
+    only_if { rootless_mode }
   end
 
   directory '/var/docker/.local/share' do
     user lazy { Etc.getpwnam('docker').uid }
     group lazy { Etc.getpwnam('docker').gid }
     mode '0711'
+
+    only_if { rootless_mode }
   end
 
   directory File.join(alternate_storage_location, 'docker') do
@@ -97,7 +110,10 @@ unless alternate_storage_location.nil?
     mode '0710'
   end
 
-  link '/var/docker/.local/share/docker' do
+  link 'docker data root' do
+    target_file lazy {
+      rootless_mode ? '/var/docker/.local/share/docker' : '/var/lib/docker'
+    }
     to File.join(alternate_storage_location, 'docker')
   end
 end
@@ -149,14 +165,16 @@ end
 
 apt_package 'uidmap' do
   action :install
+
+  only_if { rootless_mode }
 end
 
 systemd_unit 'docker.service' do
-  action :disable
+  action (rootless_mode ? :disable : :enable)
 end
 
 systemd_unit 'docker.socket' do
-  action :disable
+  action (rootless_mode ? :disable : :enable)
 end
 
 execute 'docker rootless install' do
@@ -167,12 +185,18 @@ execute 'docker rootless install' do
   user 'docker'
 
   creates '/var/docker/.skip-install-chef'
+
+  only_if { rootless_mode }
 end
 
 file '/var/docker/.skip-install-chef' do
   action :create_if_missing
+
+  only_if { rootless_mode }
 end
 
 execute 'systemctl --user enable docker.service' do
   command %w[systemctl --user --machine docker@.host enable docker.service]
+
+  only_if { rootless_mode }
 end
