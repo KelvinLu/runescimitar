@@ -77,7 +77,8 @@
     },
 
     "docker": {
-      "storage_location":       "/storage/applications/"
+      "rootless":               true,
+      "storage_location":       "/storage/applications"
     }
   },
 
@@ -148,6 +149,6 @@
 
     "recipe[applications::gatus]",
 
-    "recipe[applications::docker_rootless]"
+    "recipe[applications::docker]"
   ]
 }
